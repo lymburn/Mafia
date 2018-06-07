@@ -13,6 +13,8 @@ class HomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        
+        homeView.delegate = self
     }
     
     let homeView: HomeView = {
@@ -42,7 +44,6 @@ class HomeController: UIViewController {
         homeView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         homeView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         homeView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -screenSize.height*0.1).isActive = true
-        //homeView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
         homeView.heightAnchor.constraint(equalToConstant: screenSize.height*0.6).isActive = true
         
         backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -50,5 +51,22 @@ class HomeController: UIViewController {
         backgroundImage.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
+}
+
+//Home view delegate methods
+extension HomeController:HomeViewDelegate {
+    func joinPressed() {
+        
+    }
+    
+    func createPressed() {
+        
+    }
+    
+    func rolesPressed() {
+        
+    }
+    
+    
 }
 

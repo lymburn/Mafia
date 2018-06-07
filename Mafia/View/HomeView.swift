@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol HomeViewDelegate: class {
+    func joinPressed()
+    func createPressed()
+    func rolesPressed()
+}
+
 class HomeView: BaseView {
     override func setupViews() {
         super.setupViews()
@@ -26,12 +32,14 @@ class HomeView: BaseView {
     }
     
     var stackView: UIStackView!
+    var delegate: HomeViewDelegate? = nil
     
     let joinButton: UIButton = {
         let bt = UIButton()
         bt.setTitle("Join Game", for: .normal)
         bt.titleLabel?.font = UIFont(name: "Helvetica", size: 30)
         bt.translatesAutoresizingMaskIntoConstraints = false
+        bt.addTarget(self, action: #selector(joinPressed), for: .touchDown)
         return bt
     }()
     
@@ -40,6 +48,7 @@ class HomeView: BaseView {
         bt.setTitle("Create Game", for: .normal)
         bt.titleLabel?.font = UIFont(name: "Helvetica", size: 30)
         bt.translatesAutoresizingMaskIntoConstraints = false
+        bt.addTarget(self, action: #selector(joinPressed), for: .touchDown)
         return bt
     }()
     
@@ -48,6 +57,7 @@ class HomeView: BaseView {
         bt.setTitle("Game Roles", for: .normal)
         bt.titleLabel?.font = UIFont(name: "Helvetica", size: 30)
         bt.translatesAutoresizingMaskIntoConstraints = false
+        bt.addTarget(self, action: #selector(joinPressed), for: .touchDown)
         return bt
     }()
     
@@ -74,5 +84,20 @@ class HomeView: BaseView {
         stackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: screenSize.height*0.2).isActive = true
         stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    }
+}
+
+//MARK: Touch events
+extension HomeView {
+    @objc func joinPressed() {
+        delegate?.joinPressed()
+    }
+    
+    @objc func createPressed() {
+        delegate?.createPressed()
+    }
+    
+    @objc func rolesPressed() {
+        delegate?.rolesPressed()
     }
 }
