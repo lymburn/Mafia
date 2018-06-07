@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		268E18A720C9D758003190BD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18A620C9D758003190BD /* Extensions.swift */; };
+		268E18AB20C9DFF8003190BD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18AA20C9DFF8003190BD /* HomeView.swift */; };
+		268E18AD20C9E023003190BD /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18AC20C9E022003190BD /* BaseView.swift */; };
 		26DF84FF20AFBD8D0058F003 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DF84FE20AFBD8D0058F003 /* AppDelegate.swift */; };
 		26DF850120AFBD8D0058F003 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DF850020AFBD8D0058F003 /* HomeController.swift */; };
 		26DF850420AFBD8D0058F003 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26DF850220AFBD8D0058F003 /* Main.storyboard */; };
@@ -19,6 +21,8 @@
 /* Begin PBXFileReference section */
 		20BBEEC094D59464D554E27D /* Pods-Mafia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mafia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mafia/Pods-Mafia.release.xcconfig"; sourceTree = "<group>"; };
 		268E18A620C9D758003190BD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		268E18AA20C9DFF8003190BD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		268E18AC20C9E022003190BD /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		26DF84FB20AFBD8D0058F003 /* Mafia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mafia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26DF84FE20AFBD8D0058F003 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		26DF850020AFBD8D0058F003 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -65,9 +69,9 @@
 			children = (
 				26DF851020AFBD990058F003 /* Supporting Files */,
 				26DF84FE20AFBD8D0058F003 /* AppDelegate.swift */,
+				26DF851120AFBDE00058F003 /* Controller */,
 				26DF851320AFBDF40058F003 /* View */,
 				26DF851220AFBDEA0058F003 /* Model */,
-				26DF851120AFBDE00058F003 /* Controller */,
 				26DF850A20AFBD8F0058F003 /* Info.plist */,
 			);
 			path = Mafia;
@@ -102,6 +106,8 @@
 		26DF851320AFBDF40058F003 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				268E18AA20C9DFF8003190BD /* HomeView.swift */,
+				268E18AC20C9E022003190BD /* BaseView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -237,6 +243,8 @@
 			files = (
 				26DF850120AFBD8D0058F003 /* HomeController.swift in Sources */,
 				268E18A720C9D758003190BD /* Extensions.swift in Sources */,
+				268E18AD20C9E023003190BD /* BaseView.swift in Sources */,
+				268E18AB20C9DFF8003190BD /* HomeView.swift in Sources */,
 				26DF84FF20AFBD8D0058F003 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
