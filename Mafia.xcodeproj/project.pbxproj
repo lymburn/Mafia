@@ -7,21 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		268E18A720C9D758003190BD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18A620C9D758003190BD /* Extensions.swift */; };
 		26DF84FF20AFBD8D0058F003 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DF84FE20AFBD8D0058F003 /* AppDelegate.swift */; };
-		26DF850120AFBD8D0058F003 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DF850020AFBD8D0058F003 /* ViewController.swift */; };
+		26DF850120AFBD8D0058F003 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DF850020AFBD8D0058F003 /* HomeController.swift */; };
 		26DF850420AFBD8D0058F003 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26DF850220AFBD8D0058F003 /* Main.storyboard */; };
 		26DF850620AFBD8F0058F003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26DF850520AFBD8F0058F003 /* Assets.xcassets */; };
 		26DF850920AFBD8F0058F003 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26DF850720AFBD8F0058F003 /* LaunchScreen.storyboard */; };
+		8E3FA2725357C00F69ADF5D1 /* Pods_Mafia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9139689DE0E92035E7879447 /* Pods_Mafia.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		20BBEEC094D59464D554E27D /* Pods-Mafia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mafia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mafia/Pods-Mafia.release.xcconfig"; sourceTree = "<group>"; };
+		268E18A620C9D758003190BD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		26DF84FB20AFBD8D0058F003 /* Mafia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mafia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26DF84FE20AFBD8D0058F003 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		26DF850020AFBD8D0058F003 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		26DF850020AFBD8D0058F003 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		26DF850320AFBD8D0058F003 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		26DF850520AFBD8F0058F003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		26DF850820AFBD8F0058F003 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		26DF850A20AFBD8F0058F003 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9139689DE0E92035E7879447 /* Pods_Mafia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mafia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCD5FCA9F64CB3C82525A372 /* Pods-Mafia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mafia.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mafia/Pods-Mafia.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E3FA2725357C00F69ADF5D1 /* Pods_Mafia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +47,8 @@
 			children = (
 				26DF84FD20AFBD8D0058F003 /* Mafia */,
 				26DF84FC20AFBD8D0058F003 /* Products */,
+				5C1597AAEE56F1830D6C4B75 /* Pods */,
+				CB4D75A6C839DD7AD63D2D29 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +63,64 @@
 		26DF84FD20AFBD8D0058F003 /* Mafia */ = {
 			isa = PBXGroup;
 			children = (
+				26DF851020AFBD990058F003 /* Supporting Files */,
 				26DF84FE20AFBD8D0058F003 /* AppDelegate.swift */,
-				26DF850020AFBD8D0058F003 /* ViewController.swift */,
-				26DF850220AFBD8D0058F003 /* Main.storyboard */,
-				26DF850520AFBD8F0058F003 /* Assets.xcassets */,
-				26DF850720AFBD8F0058F003 /* LaunchScreen.storyboard */,
+				26DF851320AFBDF40058F003 /* View */,
+				26DF851220AFBDEA0058F003 /* Model */,
+				26DF851120AFBDE00058F003 /* Controller */,
 				26DF850A20AFBD8F0058F003 /* Info.plist */,
 			);
 			path = Mafia;
+			sourceTree = "<group>";
+		};
+		26DF851020AFBD990058F003 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				26DF850520AFBD8F0058F003 /* Assets.xcassets */,
+				26DF850220AFBD8D0058F003 /* Main.storyboard */,
+				26DF850720AFBD8F0058F003 /* LaunchScreen.storyboard */,
+				268E18A620C9D758003190BD /* Extensions.swift */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		26DF851120AFBDE00058F003 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				26DF850020AFBD8D0058F003 /* HomeController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		26DF851220AFBDEA0058F003 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		26DF851320AFBDF40058F003 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5C1597AAEE56F1830D6C4B75 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DCD5FCA9F64CB3C82525A372 /* Pods-Mafia.debug.xcconfig */,
+				20BBEEC094D59464D554E27D /* Pods-Mafia.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		CB4D75A6C839DD7AD63D2D29 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9139689DE0E92035E7879447 /* Pods_Mafia.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +130,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 26DF850D20AFBD8F0058F003 /* Build configuration list for PBXNativeTarget "Mafia" */;
 			buildPhases = (
+				B59D9CD13E9C1902014FC7D9 /* [CP] Check Pods Manifest.lock */,
 				26DF84F720AFBD8D0058F003 /* Sources */,
 				26DF84F820AFBD8D0058F003 /* Frameworks */,
 				26DF84F920AFBD8D0058F003 /* Resources */,
+				439BDB272EF1E58D67080233 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -130,12 +191,52 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		439BDB272EF1E58D67080233 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Mafia/Pods-Mafia-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mafia/Pods-Mafia-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B59D9CD13E9C1902014FC7D9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Mafia-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		26DF84F720AFBD8D0058F003 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26DF850120AFBD8D0058F003 /* ViewController.swift in Sources */,
+				26DF850120AFBD8D0058F003 /* HomeController.swift in Sources */,
+				268E18A720C9D758003190BD /* Extensions.swift in Sources */,
 				26DF84FF20AFBD8D0058F003 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,6 +379,7 @@
 		};
 		26DF850E20AFBD8F0058F003 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DCD5FCA9F64CB3C82525A372 /* Pods-Mafia.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -296,6 +398,7 @@
 		};
 		26DF850F20AFBD8F0058F003 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20BBEEC094D59464D554E27D /* Pods-Mafia.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
