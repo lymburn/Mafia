@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		262628BE20CA3C1000EE9F0D /* CreateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262628BD20CA3C1000EE9F0D /* CreateController.swift */; };
+		2661D5C420CA0877003A6A02 /* JoinController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2661D5C320CA0877003A6A02 /* JoinController.swift */; };
+		2661D5C620CA1577003A6A02 /* HomeViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2661D5C520CA1577003A6A02 /* HomeViewButton.swift */; };
 		268E18A720C9D758003190BD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18A620C9D758003190BD /* Extensions.swift */; };
 		268E18AB20C9DFF8003190BD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18AA20C9DFF8003190BD /* HomeView.swift */; };
 		268E18AD20C9E023003190BD /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18AC20C9E022003190BD /* BaseView.swift */; };
@@ -20,6 +23,9 @@
 
 /* Begin PBXFileReference section */
 		20BBEEC094D59464D554E27D /* Pods-Mafia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mafia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mafia/Pods-Mafia.release.xcconfig"; sourceTree = "<group>"; };
+		262628BD20CA3C1000EE9F0D /* CreateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateController.swift; sourceTree = "<group>"; };
+		2661D5C320CA0877003A6A02 /* JoinController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinController.swift; sourceTree = "<group>"; };
+		2661D5C520CA1577003A6A02 /* HomeViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewButton.swift; sourceTree = "<group>"; };
 		268E18A620C9D758003190BD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		268E18AA20C9DFF8003190BD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		268E18AC20C9E022003190BD /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
@@ -92,6 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				26DF850020AFBD8D0058F003 /* HomeController.swift */,
+				2661D5C320CA0877003A6A02 /* JoinController.swift */,
+				262628BD20CA3C1000EE9F0D /* CreateController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -108,6 +116,7 @@
 			children = (
 				268E18AA20C9DFF8003190BD /* HomeView.swift */,
 				268E18AC20C9E022003190BD /* BaseView.swift */,
+				2661D5C520CA1577003A6A02 /* HomeViewButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -242,6 +251,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				26DF850120AFBD8D0058F003 /* HomeController.swift in Sources */,
+				262628BE20CA3C1000EE9F0D /* CreateController.swift in Sources */,
+				2661D5C420CA0877003A6A02 /* JoinController.swift in Sources */,
+				2661D5C620CA1577003A6A02 /* HomeViewButton.swift in Sources */,
 				268E18A720C9D758003190BD /* Extensions.swift in Sources */,
 				268E18AD20C9E023003190BD /* BaseView.swift in Sources */,
 				268E18AB20C9DFF8003190BD /* HomeView.swift in Sources */,

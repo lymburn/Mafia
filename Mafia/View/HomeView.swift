@@ -27,6 +27,7 @@ class HomeView: BaseView {
         
         addSubview(titleLabel)
         addSubview(stackView)
+        addSubview(profileButton)
 
         setNeedsUpdateConstraints()
     }
@@ -34,30 +35,32 @@ class HomeView: BaseView {
     var stackView: UIStackView!
     var delegate: HomeViewDelegate? = nil
     
-    let joinButton: UIButton = {
-        let bt = UIButton()
-        bt.setTitle("Join Game", for: .normal)
-        bt.titleLabel?.font = UIFont(name: "Helvetica", size: 30)
-        bt.translatesAutoresizingMaskIntoConstraints = false
+    let joinButton: HomeViewButton = {
+        let bt = HomeViewButton()
+        bt.setTitle("Join", for: .normal)
         bt.addTarget(self, action: #selector(joinPressed), for: .touchDown)
         return bt
     }()
     
-    let createButton: UIButton = {
-        let bt = UIButton()
-        bt.setTitle("Create Game", for: .normal)
-        bt.titleLabel?.font = UIFont(name: "Helvetica", size: 30)
-        bt.translatesAutoresizingMaskIntoConstraints = false
-        bt.addTarget(self, action: #selector(joinPressed), for: .touchDown)
+    let createButton: HomeViewButton = {
+        let bt = HomeViewButton()
+        bt.setTitle("Create", for: .normal)
+        bt.addTarget(self, action: #selector(createPressed), for: .touchDown)
         return bt
     }()
     
-    let rolesButton: UIButton = {
+    let rolesButton: HomeViewButton = {
+        let bt = HomeViewButton()
+        bt.setTitle("Roles", for: .normal)
+        bt.addTarget(self, action: #selector(rolesPressed), for: .touchDown)
+        return bt
+    }()
+    
+    let profileButton: UIButton = {
         let bt = UIButton()
-        bt.setTitle("Game Roles", for: .normal)
-        bt.titleLabel?.font = UIFont(name: "Helvetica", size: 30)
         bt.translatesAutoresizingMaskIntoConstraints = false
-        bt.addTarget(self, action: #selector(joinPressed), for: .touchDown)
+        bt.setImage(UIImage(named: "ProfileButton"), for: .normal)
+        bt.addTarget(self, action: #selector(profilePressed), for: .touchDown)
         return bt
     }()
     
@@ -66,7 +69,7 @@ class HomeView: BaseView {
         lb.text = "Mafia"
         lb.font = UIFont(name: "Helvetica", size: 35)
         lb.textAlignment = .center
-        lb.textColor = .white
+        lb.textColor = UIColor(rgb: 0xEDE1BE)
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
@@ -77,13 +80,22 @@ class HomeView: BaseView {
         
         titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 30).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: screenSize.height*0.25).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 40)
         
         stackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: screenSize.height*0.2).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -screenSize.height*0.15).isActive = true
+        
+        createButton.widthAnchor.constraint(equalToConstant: 130).isActive = true
+        joinButton.widthAnchor.constraint(equalToConstant: 130).isActive = true
+        rolesButton.widthAnchor.constraint(equalToConstant: 130).isActive = true
+        
+        profileButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
+        profileButton.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+        profileButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        profileButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
 }
 
@@ -99,5 +111,9 @@ extension HomeView {
     
     @objc func rolesPressed() {
         delegate?.rolesPressed()
+    }
+    
+    @objc func profilePressed() {
+        
     }
 }

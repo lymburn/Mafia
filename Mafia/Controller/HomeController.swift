@@ -39,12 +39,11 @@ class HomeController: UIViewController {
     
     override func updateViewConstraints() {
         super.updateViewConstraints()
-        let screenSize: CGRect = UIScreen.main.bounds
         
         homeView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         homeView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        homeView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -screenSize.height*0.1).isActive = true
-        homeView.heightAnchor.constraint(equalToConstant: screenSize.height*0.6).isActive = true
+        homeView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        homeView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         
         backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -56,17 +55,17 @@ class HomeController: UIViewController {
 //Home view delegate methods
 extension HomeController:HomeViewDelegate {
     func joinPressed() {
-        
+        let join = JoinController()
+        present(join, animated: true, completion: nil)
     }
     
     func createPressed() {
-        
+        let create = CreateController()
+        present(create, animated: true, completion: nil)
     }
     
     func rolesPressed() {
         
     }
-    
-    
 }
 
