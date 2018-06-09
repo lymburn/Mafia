@@ -12,6 +12,7 @@ class ChatMessageCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
+
     }
     
     let messageTextView: UITextView = {
@@ -22,6 +23,10 @@ class ChatMessageCell: UITableViewCell {
         textView.isScrollEnabled = false
         textView.isUserInteractionEnabled = false
         textView.backgroundColor = .clear
+        textView.layer.cornerRadius = 8
+        textView.layer.borderColor = UIColor.purple.cgColor
+        textView.layer.borderWidth = 2
+
         return textView
     }()
     
@@ -33,7 +38,7 @@ class ChatMessageCell: UITableViewCell {
     override func updateConstraints() {
         super.updateConstraints()
         messageTextView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
-        messageTextView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8 ).isActive = true
+        messageTextView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -8).isActive = true
         messageTextView.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
         messageTextView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
     }
