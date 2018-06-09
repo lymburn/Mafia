@@ -67,10 +67,14 @@ class HomeView: BaseView {
     let titleLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Mafia"
-        lb.font = UIFont(name: "Helvetica", size: 35)
+        lb.font = UIFont(name: "Magical Mystery Tour", size: 60)
         lb.textAlignment = .center
-        lb.textColor = UIColor(rgb: 0xEDE1BE)
+        lb.textColor = UIColor(rgb: 0xef6e31)
         lb.translatesAutoresizingMaskIntoConstraints = false
+        lb.layer.shadowRadius = 3
+        lb.layer.shadowOpacity = 0.6
+        lb.layer.shadowOffset = CGSize(width: 3, height: 3)
+        lb.clipsToBounds = true
         return lb
     }()
     
@@ -85,8 +89,8 @@ class HomeView: BaseView {
         
         stackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: screenSize.height*0.2).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -screenSize.height*0.15).isActive = true
+        stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: screenSize.height*0.15).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -screenSize.height*0.05).isActive = true
         
         createButton.widthAnchor.constraint(equalToConstant: 130).isActive = true
         joinButton.widthAnchor.constraint(equalToConstant: 130).isActive = true
@@ -102,18 +106,29 @@ class HomeView: BaseView {
 //MARK: Touch events
 extension HomeView {
     @objc func joinPressed() {
+        animateButton(button: joinButton)
         delegate?.joinPressed()
     }
     
     @objc func createPressed() {
+        animateButton(button: createButton)
         delegate?.createPressed()
     }
     
     @objc func rolesPressed() {
+        animateButton(button: rolesButton)
         delegate?.rolesPressed()
     }
     
     @objc func profilePressed() {
         
+    }
+    
+    private func animateButton(button: UIButton) {
+        //Create bounce animation on button press
+        button.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 6, options: .allowUserInteraction, animations: {
+            button.transform = CGAffineTransform.identity
+        }, completion: nil)
     }
 }

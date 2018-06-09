@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		262628BE20CA3C1000EE9F0D /* CreateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262628BD20CA3C1000EE9F0D /* CreateController.swift */; };
+		262628C020CA3E2900EE9F0D /* LobbyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262628BF20CA3E2900EE9F0D /* LobbyController.swift */; };
 		2661D5C420CA0877003A6A02 /* JoinController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2661D5C320CA0877003A6A02 /* JoinController.swift */; };
 		2661D5C620CA1577003A6A02 /* HomeViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2661D5C520CA1577003A6A02 /* HomeViewButton.swift */; };
+		2667CED020CC40E80048536C /* MagicalMystery.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2667CECF20CC40E00048536C /* MagicalMystery.ttf */; };
 		268E18A720C9D758003190BD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18A620C9D758003190BD /* Extensions.swift */; };
 		268E18AB20C9DFF8003190BD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18AA20C9DFF8003190BD /* HomeView.swift */; };
 		268E18AD20C9E023003190BD /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18AC20C9E022003190BD /* BaseView.swift */; };
@@ -24,8 +26,10 @@
 /* Begin PBXFileReference section */
 		20BBEEC094D59464D554E27D /* Pods-Mafia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mafia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mafia/Pods-Mafia.release.xcconfig"; sourceTree = "<group>"; };
 		262628BD20CA3C1000EE9F0D /* CreateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateController.swift; sourceTree = "<group>"; };
+		262628BF20CA3E2900EE9F0D /* LobbyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyController.swift; sourceTree = "<group>"; };
 		2661D5C320CA0877003A6A02 /* JoinController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinController.swift; sourceTree = "<group>"; };
 		2661D5C520CA1577003A6A02 /* HomeViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewButton.swift; sourceTree = "<group>"; };
+		2667CECF20CC40E00048536C /* MagicalMystery.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MagicalMystery.ttf; path = Assets.xcassets/MagicalMystery.ttf; sourceTree = "<group>"; };
 		268E18A620C9D758003190BD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		268E18AA20C9DFF8003190BD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		268E18AC20C9E022003190BD /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
@@ -86,6 +90,7 @@
 		26DF851020AFBD990058F003 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2667CECF20CC40E00048536C /* MagicalMystery.ttf */,
 				26DF850520AFBD8F0058F003 /* Assets.xcassets */,
 				26DF850220AFBD8D0058F003 /* Main.storyboard */,
 				26DF850720AFBD8F0058F003 /* LaunchScreen.storyboard */,
@@ -100,6 +105,7 @@
 				26DF850020AFBD8D0058F003 /* HomeController.swift */,
 				2661D5C320CA0877003A6A02 /* JoinController.swift */,
 				262628BD20CA3C1000EE9F0D /* CreateController.swift */,
+				262628BF20CA3E2900EE9F0D /* LobbyController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -199,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26DF850920AFBD8F0058F003 /* LaunchScreen.storyboard in Resources */,
+				2667CED020CC40E80048536C /* MagicalMystery.ttf in Resources */,
 				26DF850620AFBD8F0058F003 /* Assets.xcassets in Resources */,
 				26DF850420AFBD8D0058F003 /* Main.storyboard in Resources */,
 			);
@@ -254,6 +261,7 @@
 				262628BE20CA3C1000EE9F0D /* CreateController.swift in Sources */,
 				2661D5C420CA0877003A6A02 /* JoinController.swift in Sources */,
 				2661D5C620CA1577003A6A02 /* HomeViewButton.swift in Sources */,
+				262628C020CA3E2900EE9F0D /* LobbyController.swift in Sources */,
 				268E18A720C9D758003190BD /* Extensions.swift in Sources */,
 				268E18AD20C9E023003190BD /* BaseView.swift in Sources */,
 				268E18AB20C9DFF8003190BD /* HomeView.swift in Sources */,
