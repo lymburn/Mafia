@@ -43,10 +43,10 @@ class ProfileCell: UICollectionViewCell {
     override func updateConstraints() {
         super.updateConstraints()
         
-        profileImage.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+        profileImage.topAnchor.constraint(equalTo: topAnchor).isActive = true
         profileImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        profileImage.widthAnchor.constraint(equalToConstant: frame.height*0.6).isActive = true
-        profileImage.heightAnchor.constraint(equalToConstant: frame.height*0.6).isActive = true
+        profileImage.widthAnchor.constraint(equalToConstant: frame.height*0.5).isActive = true
+        profileImage.heightAnchor.constraint(equalToConstant: frame.height*0.5).isActive = true
         
         name.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 8).isActive = true
         name.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
