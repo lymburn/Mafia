@@ -31,6 +31,7 @@ class LobbyController: UIViewController {
         let bt = HomeViewButton()
         bt.setTitle("Start", for: .normal)
         bt.titleLabel?.font = UIFont(name: "Magical Mystery Tour", size: 45)
+        bt.addTarget(self, action: #selector(startPressed), for: .touchDown)
         return bt
     }()
     
@@ -55,6 +56,7 @@ class LobbyController: UIViewController {
         tb.tableFooterView = UIView()
         tb.backgroundColor = .clear
         tb.separatorInset = UIEdgeInsets.zero
+        tb.separatorColor = UIColor(rgb: 0xEDE1BE)
         return tb
     }()
     
@@ -109,5 +111,12 @@ extension LobbyController: UITableViewDelegate, UITableViewDataSource {
         cell.backgroundColor = .clear
         cell.selectionStyle = .none
         return cell
+    }
+}
+
+extension LobbyController {
+    @objc func startPressed() {
+        let game = GameController()
+        present(game, animated: true, completion: nil)
     }
 }

@@ -11,8 +11,12 @@
 		262628C020CA3E2900EE9F0D /* LobbyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262628BF20CA3E2900EE9F0D /* LobbyController.swift */; };
 		2661D5C420CA0877003A6A02 /* JoinController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2661D5C320CA0877003A6A02 /* JoinController.swift */; };
 		2661D5C620CA1577003A6A02 /* HomeViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2661D5C520CA1577003A6A02 /* HomeViewButton.swift */; };
+		2662277420CC6BB300217901 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2662277320CC6BB300217901 /* ProfileCell.swift */; };
 		2667CED020CC40E80048536C /* MagicalMystery.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2667CECF20CC40E00048536C /* MagicalMystery.ttf */; };
 		2667CED220CC4C2F0048536C /* LobbyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2667CED120CC4C2F0048536C /* LobbyCell.swift */; };
+		2667CED420CC56240048536C /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2667CED320CC56240048536C /* GameController.swift */; };
+		2667CED620CC57180048536C /* GameMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2667CED520CC57180048536C /* GameMenuBar.swift */; };
+		2667CED820CC6A2D0048536C /* ProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2667CED720CC6A2D0048536C /* ProfilesView.swift */; };
 		268E18A720C9D758003190BD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18A620C9D758003190BD /* Extensions.swift */; };
 		268E18AB20C9DFF8003190BD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18AA20C9DFF8003190BD /* HomeView.swift */; };
 		268E18AD20C9E023003190BD /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18AC20C9E022003190BD /* BaseView.swift */; };
@@ -30,8 +34,12 @@
 		262628BF20CA3E2900EE9F0D /* LobbyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyController.swift; sourceTree = "<group>"; };
 		2661D5C320CA0877003A6A02 /* JoinController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinController.swift; sourceTree = "<group>"; };
 		2661D5C520CA1577003A6A02 /* HomeViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewButton.swift; sourceTree = "<group>"; };
+		2662277320CC6BB300217901 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		2667CECF20CC40E00048536C /* MagicalMystery.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MagicalMystery.ttf; path = Assets.xcassets/MagicalMystery.ttf; sourceTree = "<group>"; };
 		2667CED120CC4C2F0048536C /* LobbyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyCell.swift; sourceTree = "<group>"; };
+		2667CED320CC56240048536C /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
+		2667CED520CC57180048536C /* GameMenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMenuBar.swift; sourceTree = "<group>"; };
+		2667CED720CC6A2D0048536C /* ProfilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesView.swift; sourceTree = "<group>"; };
 		268E18A620C9D758003190BD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		268E18AA20C9DFF8003190BD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		268E18AC20C9E022003190BD /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
@@ -108,6 +116,7 @@
 				2661D5C320CA0877003A6A02 /* JoinController.swift */,
 				262628BD20CA3C1000EE9F0D /* CreateController.swift */,
 				262628BF20CA3E2900EE9F0D /* LobbyController.swift */,
+				2667CED320CC56240048536C /* GameController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -126,6 +135,9 @@
 				268E18AC20C9E022003190BD /* BaseView.swift */,
 				2661D5C520CA1577003A6A02 /* HomeViewButton.swift */,
 				2667CED120CC4C2F0048536C /* LobbyCell.swift */,
+				2667CED520CC57180048536C /* GameMenuBar.swift */,
+				2667CED720CC6A2D0048536C /* ProfilesView.swift */,
+				2662277320CC6BB300217901 /* ProfileCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -263,13 +275,17 @@
 				26DF850120AFBD8D0058F003 /* HomeController.swift in Sources */,
 				262628BE20CA3C1000EE9F0D /* CreateController.swift in Sources */,
 				2661D5C420CA0877003A6A02 /* JoinController.swift in Sources */,
+				2667CED820CC6A2D0048536C /* ProfilesView.swift in Sources */,
 				2661D5C620CA1577003A6A02 /* HomeViewButton.swift in Sources */,
+				2667CED620CC57180048536C /* GameMenuBar.swift in Sources */,
 				2667CED220CC4C2F0048536C /* LobbyCell.swift in Sources */,
 				262628C020CA3E2900EE9F0D /* LobbyController.swift in Sources */,
 				268E18A720C9D758003190BD /* Extensions.swift in Sources */,
 				268E18AD20C9E023003190BD /* BaseView.swift in Sources */,
+				2667CED420CC56240048536C /* GameController.swift in Sources */,
 				268E18AB20C9DFF8003190BD /* HomeView.swift in Sources */,
 				26DF84FF20AFBD8D0058F003 /* AppDelegate.swift in Sources */,
+				2662277420CC6BB300217901 /* ProfileCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

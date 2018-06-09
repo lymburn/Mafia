@@ -12,15 +12,12 @@ class LobbyCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
+        layoutProfileImage()
     }
     
     let profileImage: UIImageView = {
         let iv = UIImageView(image: UIImage(named: "ProfileButton"))
-        iv.layer.cornerRadius = iv.frame.height/2
-        iv.layer.borderColor = UIColor(rgb: 0xEDE1BE).cgColor
-        iv.clipsToBounds = true
-        iv.layer.masksToBounds = false
-        iv.contentMode = .scaleAspectFit
+        iv.contentMode = .scaleAspectFill
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
@@ -56,5 +53,14 @@ class LobbyCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+fileprivate extension LobbyCell {
+    func layoutProfileImage() {
+        profileImage.layer.cornerRadius = profileImage.frame.height/2
+        profileImage.layer.borderColor = UIColor(rgb: 0xEDE1BE).cgColor
+        profileImage.clipsToBounds = true
+        profileImage.layer.masksToBounds = false
     }
 }
