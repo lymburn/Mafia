@@ -18,7 +18,7 @@ class CreateController: UIViewController {
     let createButton: HomeViewButton = {
         let bt = HomeViewButton()
         bt.setTitle("Create", for: .normal)
-        bt.addTarget(self, action: #selector(startPressed), for: .touchDown)
+        bt.addTarget(self, action: #selector(createPressed), for: .touchDown)
         return bt
     }()
 
@@ -40,7 +40,8 @@ fileprivate extension CreateController {
 }
 
 extension CreateController {
-    @objc func startPressed() {
-    
+    @objc func createPressed() {
+        let lobby = LobbyController()
+        present(lobby, animated: true, completion: nil)
     }
 }
