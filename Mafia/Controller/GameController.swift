@@ -20,6 +20,7 @@ class GameController: UIViewController {
         chatView.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
         
         keyboardView.delegate = self
+        socketHelper.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,7 +34,7 @@ class GameController: UIViewController {
     
     let screenSize: CGRect = UIScreen.main.bounds
     let cellId = "cellId"
-    let messages = ["Te dolor saepe invenire mea, assum praesent qui in. Agam eleifend pericula qui eu, in vero praesent usu, malis prompta pericula id nam.", "I will save myself tonight cuz I think mafia will try to kill me.", "Screw you all"]
+    var messages = [Message]()
     var socketHelper: SocketHelper!
     
     let backgroundImage: UIImageView = {
@@ -156,7 +157,8 @@ extension GameController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ChatMessageCell
         cell.backgroundColor = .clear
-        cell.messageTextView.text = messages[indexPath.row]
+        cell.messageTextView.text = messages[indexPath.row].content
+        cell.name.text = messages[indexPath.row].sender
         return cell
     }
 }
@@ -171,6 +173,14 @@ extension GameController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         socketHelper.sendMessage(name: "Eugene", message: keyboardView.text, gameId: 123)
         keyboardView.text = ""
+    }
+}
+
+extension GameController: SocketHelperDelegate {
+    func messageReceived() {
+        let message = socketHelper.getMessage()
+        messages.append(message)
+        chatView.reloadData()
     }
 }
 

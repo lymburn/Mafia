@@ -33,7 +33,7 @@ class HomeView: BaseView {
     }
     
     var stackView: UIStackView!
-    var delegate: HomeViewDelegate? = nil
+    weak var delegate: HomeViewDelegate? = nil
     
     let joinButton: HomeViewButton = {
         let bt = HomeViewButton()
