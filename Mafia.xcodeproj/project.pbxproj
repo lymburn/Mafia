@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		262628BE20CA3C1000EE9F0D /* CreateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262628BD20CA3C1000EE9F0D /* CreateController.swift */; };
 		262628C020CA3E2900EE9F0D /* LobbyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262628BF20CA3E2900EE9F0D /* LobbyController.swift */; };
+		2630DBF920CDE02200C81101 /* SocketHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2630DBF820CDE02200C81101 /* SocketHelper.swift */; };
 		2661D5C420CA0877003A6A02 /* JoinController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2661D5C320CA0877003A6A02 /* JoinController.swift */; };
 		2661D5C620CA1577003A6A02 /* HomeViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2661D5C520CA1577003A6A02 /* HomeViewButton.swift */; };
 		2662277420CC6BB300217901 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2662277320CC6BB300217901 /* ProfileCell.swift */; };
@@ -33,6 +34,7 @@
 		20BBEEC094D59464D554E27D /* Pods-Mafia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mafia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mafia/Pods-Mafia.release.xcconfig"; sourceTree = "<group>"; };
 		262628BD20CA3C1000EE9F0D /* CreateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateController.swift; sourceTree = "<group>"; };
 		262628BF20CA3E2900EE9F0D /* LobbyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyController.swift; sourceTree = "<group>"; };
+		2630DBF820CDE02200C81101 /* SocketHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketHelper.swift; sourceTree = "<group>"; };
 		2661D5C320CA0877003A6A02 /* JoinController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinController.swift; sourceTree = "<group>"; };
 		2661D5C520CA1577003A6A02 /* HomeViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewButton.swift; sourceTree = "<group>"; };
 		2662277320CC6BB300217901 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				26DF850220AFBD8D0058F003 /* Main.storyboard */,
 				26DF850720AFBD8F0058F003 /* LaunchScreen.storyboard */,
 				268E18A620C9D758003190BD /* Extensions.swift */,
+				2630DBF820CDE02200C81101 /* SocketHelper.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -240,10 +243,16 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Mafia/Pods-Mafia-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -281,6 +290,7 @@
 				2667CED820CC6A2D0048536C /* ProfilesView.swift in Sources */,
 				2661D5C620CA1577003A6A02 /* HomeViewButton.swift in Sources */,
 				2667CED620CC57180048536C /* GameMenuBar.swift in Sources */,
+				2630DBF920CDE02200C81101 /* SocketHelper.swift in Sources */,
 				2662277820CC7B2300217901 /* ChatMessageCell.swift in Sources */,
 				2667CED220CC4C2F0048536C /* LobbyCell.swift in Sources */,
 				262628C020CA3E2900EE9F0D /* LobbyController.swift in Sources */,

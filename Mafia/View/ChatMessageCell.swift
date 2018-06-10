@@ -52,7 +52,7 @@ class ChatMessageCell: UITableViewCell {
         name.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         
         messageTextView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
-        messageTextView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -8).isActive = true
+        messageTextView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -12).isActive = true
         messageTextView.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 8).isActive = true
         messageTextView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
     }

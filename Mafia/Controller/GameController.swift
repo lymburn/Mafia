@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SocketIO
 
 class GameController: UIViewController {
 
@@ -17,6 +18,8 @@ class GameController: UIViewController {
         chatView.delegate = self
         chatView.dataSource = self
         chatView.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
+        
+        keyboardView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -24,9 +27,14 @@ class GameController: UIViewController {
         chatView.rowHeight = UITableViewAutomaticDimension
     }
     
+    override func viewDidLayoutSubviews() {
+        keyboardView.centerVertically()
+    }
+    
     let screenSize: CGRect = UIScreen.main.bounds
     let cellId = "cellId"
-    let messages = ["Te dolor saepe invenire mea, assum praesent qui in. Agam eleifend pericula qui eu, in vero praesent usu, malis prompta pericula id nam. Cu eros blandit recteque sea, perpetua constituam ea vix. Ubique legere aliquid ne his, modo dicunt omnium cum ea, et luptatum salutandi eum. At nam eripuit explicari liberavisse, id labores dolores oporteat has. No audire laoreet accusamus vis, an sumo vidisse eum, ut mei facer everti detraxit.", "I will save myself tonight cuz I think mafia will try to kill me.", "Screw you all"]
+    let messages = ["Te dolor saepe invenire mea, assum praesent qui in. Agam eleifend pericula qui eu, in vero praesent usu, malis prompta pericula id nam.", "I will save myself tonight cuz I think mafia will try to kill me.", "Screw you all"]
+    var socketHelper: SocketHelper!
     
     let backgroundImage: UIImageView = {
         let iv = UIImageView(image: UIImage(named: "Night"))
@@ -60,12 +68,37 @@ class GameController: UIViewController {
         let cv = UITableView()
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.separatorColor = .clear
+        cv.allowsSelection = false
         cv.tableFooterView = UIView()
         cv.backgroundColor = .clear
-        cv.layer.borderColor = UIColor.white.cgColor
-        cv.layer.borderWidth = 2
+        cv.layer.borderWidth = 1
+        cv.layer.borderColor = UIColor.rgb(255, 255, 255, 0.5).cgColor
         cv.layer.cornerRadius = 10
         return cv
+    }()
+    
+    let keyboardView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.font = UIFont(name: "Helvetica", size: 16)
+        textView.textColor = .white
+        textView.layer.borderColor = UIColor.white.cgColor
+        textView.layer.borderWidth = 1
+        textView.layer.cornerRadius = 10
+        textView.clipsToBounds = true
+        textView.backgroundColor = .clear
+        return textView
+    }()
+    
+    let sendButton: UIButton = {
+        let bt = UIButton()
+        bt.setTitle("Send", for: .normal)
+        bt.titleLabel?.font = UIFont(name: "Helvetica", size: 18)
+        bt.setTitleColor(.white, for: .normal)
+        bt.contentHorizontalAlignment = .right
+        bt.translatesAutoresizingMaskIntoConstraints = false
+        bt.addTarget(self, action: #selector(sendPressed), for: .touchDown)
+        return bt
     }()
     
     fileprivate func setupViews() {
@@ -75,6 +108,8 @@ class GameController: UIViewController {
         view.addSubview(leftProfiles)
         view.addSubview(rightProfiles)
         view.addSubview(chatView)
+        view.addSubview(keyboardView)
+        view.addSubview(sendButton)
         self.updateViewConstraints()
     }
     
@@ -93,18 +128,23 @@ class GameController: UIViewController {
         
         leftProfiles.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         leftProfiles.topAnchor.constraint(equalTo: gameMenuBar.bottomAnchor).isActive = true
-        leftProfiles.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
+        leftProfiles.bottomAnchor.constraint(equalTo: keyboardView.topAnchor, constant: -16).isActive = true
         leftProfiles.widthAnchor.constraint(equalToConstant: screenSize.width*0.15).isActive = true
         
         rightProfiles.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         rightProfiles.topAnchor.constraint(equalTo: gameMenuBar.bottomAnchor).isActive = true
-        rightProfiles.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
+        rightProfiles.bottomAnchor.constraint(equalTo: keyboardView.topAnchor, constant: -16).isActive = true
         rightProfiles.widthAnchor.constraint(equalToConstant: screenSize.width*0.15).isActive = true
         
         chatView.leadingAnchor.constraint(equalTo: leftProfiles.trailingAnchor, constant: 10).isActive = true
         chatView.trailingAnchor.constraint(equalTo: rightProfiles.leadingAnchor, constant: -10).isActive = true
         chatView.topAnchor.constraint(equalTo: gameMenuBar.bottomAnchor).isActive = true
-        chatView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
+        chatView.bottomAnchor.constraint(equalTo: keyboardView.topAnchor, constant: -32).isActive = true
+        
+        keyboardView.leadingAnchor.constraint(equalTo: leftProfiles.trailingAnchor, constant: 10).isActive = true
+        keyboardView.trailingAnchor.constraint(equalTo: rightProfiles.leadingAnchor, constant: -10).isActive = true
+        keyboardView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
+        keyboardView.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
 }
 
@@ -119,7 +159,18 @@ extension GameController: UITableViewDelegate, UITableViewDataSource {
         cell.messageTextView.text = messages[indexPath.row]
         return cell
     }
-    
-    
+}
+
+extension GameController {
+    @objc func sendPressed() {
+        keyboardView.text = ""
+    }
+}
+
+extension GameController: UITextViewDelegate {
+    func textViewDidEndEditing(_ textView: UITextView) {
+        socketHelper.sendMessage(name: "Eugene", message: keyboardView.text, gameId: 123)
+        keyboardView.text = ""
+    }
 }
 

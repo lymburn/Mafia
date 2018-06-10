@@ -12,13 +12,14 @@ class LobbyController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        
+        socketHelper.setupSocket(name: "test", gameId: 123)
         tableView.register(LobbyCell.self, forCellReuseIdentifier: cellId)
         tableView.delegate = self
         tableView.dataSource = self
     }
     
     let cellId = "cellId"
+    let socketHelper = SocketHelper()
     
     let container: UIView = {
         let view = UIView()
@@ -117,6 +118,7 @@ extension LobbyController: UITableViewDelegate, UITableViewDataSource {
 extension LobbyController {
     @objc func startPressed() {
         let game = GameController()
+        game.socketHelper = socketHelper
         present(game, animated: true, completion: nil)
     }
 }
