@@ -9,170 +9,118 @@
 import UIKit
 import SocketIO
 
-class GameController: UIViewController {
+class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         
-        chatView.delegate = self
-        chatView.dataSource = self
-        chatView.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
-        
-        keyboardView.delegate = self
         socketHelper.delegate = self
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        chatView.estimatedRowHeight = 100
-        chatView.rowHeight = UITableViewAutomaticDimension
-    }
-    
-    override func viewDidLayoutSubviews() {
-        keyboardView.centerVertically()
+        
+        cardsCollectionView.delegate = self
+        cardsCollectionView.dataSource = self
+        cardsCollectionView.register(ChatViewCell.self, forCellWithReuseIdentifier: chatCellId)
+        cardsCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "hi")
+        
+        backgroundCollectionView.delegate = self
+        backgroundCollectionView.dataSource = self
+        backgroundCollectionView.register(BackgroundCell.self, forCellWithReuseIdentifier: backgroundCellId)
+
     }
     
     let screenSize: CGRect = UIScreen.main.bounds
     let cellId = "cellId"
+    let chatCellId = "chatCellId"
+    let backgroundCellId = "backgroundCellId"
     var messages = [Message]()
     var socketHelper: SocketHelper!
     
-    let backgroundImage: UIImageView = {
-        let iv = UIImageView(image: UIImage(named: "Night"))
-        iv.clipsToBounds = true
-        iv.contentMode = .scaleAspectFill
-        iv.alpha = 0.3
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
+    let cardsCollectionView: UICollectionView = {
+        let frame = CGRect(x: 25, y: 50, width: UIScreen.main.bounds.width*0.8, height: UIScreen.main.bounds.height*0.8)
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let col = UICollectionView(frame: frame, collectionViewLayout: layout)
+        col.layer.borderColor = UIColor.red.cgColor
+        col.layer.borderWidth = 1.0
+        col.backgroundColor = UIColor.yellow
+        col.translatesAutoresizingMaskIntoConstraints = false
+        return col
     }()
     
-    let gameMenuBar: GameMenuBar = {
-        let gm = GameMenuBar()
-        gm.backgroundColor = .clear
-        gm.translatesAutoresizingMaskIntoConstraints = false
-        return gm
-    }()
-    
-    let leftProfiles: ProfilesView = {
-        let pv = ProfilesView()
-        pv.translatesAutoresizingMaskIntoConstraints = false
-        return pv
-    }()
-    
-    let rightProfiles: ProfilesView = {
-        let pv = ProfilesView()
-        pv.translatesAutoresizingMaskIntoConstraints = false
-        return pv
-    }()
-    
-    let chatView: UITableView = {
-        let cv = UITableView()
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.separatorColor = .clear
-        cv.allowsSelection = false
-        cv.tableFooterView = UIView()
-        cv.backgroundColor = .clear
-        cv.layer.borderWidth = 1
-        cv.layer.borderColor = UIColor.rgb(255, 255, 255, 0.5).cgColor
-        cv.layer.cornerRadius = 10
-        return cv
-    }()
-    
-    let keyboardView: UITextView = {
-        let textView = UITextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.font = UIFont(name: "Helvetica", size: 16)
-        textView.textColor = .white
-        textView.layer.borderColor = UIColor.white.cgColor
-        textView.layer.borderWidth = 1
-        textView.layer.cornerRadius = 10
-        textView.clipsToBounds = true
-        textView.backgroundColor = .clear
-        return textView
-    }()
-    
-    let sendButton: UIButton = {
-        let bt = UIButton()
-        bt.setTitle("Send", for: .normal)
-        bt.titleLabel?.font = UIFont(name: "Helvetica", size: 18)
-        bt.setTitleColor(.white, for: .normal)
-        bt.contentHorizontalAlignment = .right
-        bt.translatesAutoresizingMaskIntoConstraints = false
-        bt.addTarget(self, action: #selector(sendPressed), for: .touchDown)
-        return bt
+    let backgroundCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let col = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        col.translatesAutoresizingMaskIntoConstraints = false
+        return col
     }()
     
     fileprivate func setupViews() {
         view.backgroundColor = UIColor(rgb: 0x181F42)
-        view.addSubview(backgroundImage)
-        view.addSubview(gameMenuBar)
-        view.addSubview(leftProfiles)
-        view.addSubview(rightProfiles)
-        view.addSubview(chatView)
-        view.addSubview(keyboardView)
-        view.addSubview(sendButton)
+                view.addSubview(cardsCollectionView)
+        view.addSubview(backgroundCollectionView)
+
         self.updateViewConstraints()
     }
     
     override func updateViewConstraints() {
         super.updateViewConstraints()
         
-        backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        backgroundImage.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
-        gameMenuBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        gameMenuBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        gameMenuBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        gameMenuBar.heightAnchor.constraint(equalToConstant: screenSize.height*0.15).isActive = true
-        
-        leftProfiles.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        leftProfiles.topAnchor.constraint(equalTo: gameMenuBar.bottomAnchor).isActive = true
-        leftProfiles.bottomAnchor.constraint(equalTo: keyboardView.topAnchor, constant: -16).isActive = true
-        leftProfiles.widthAnchor.constraint(equalToConstant: screenSize.width*0.15).isActive = true
-        
-        rightProfiles.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        rightProfiles.topAnchor.constraint(equalTo: gameMenuBar.bottomAnchor).isActive = true
-        rightProfiles.bottomAnchor.constraint(equalTo: keyboardView.topAnchor, constant: -16).isActive = true
-        rightProfiles.widthAnchor.constraint(equalToConstant: screenSize.width*0.15).isActive = true
-        
-        chatView.leadingAnchor.constraint(equalTo: leftProfiles.trailingAnchor, constant: 10).isActive = true
-        chatView.trailingAnchor.constraint(equalTo: rightProfiles.leadingAnchor, constant: -10).isActive = true
-        chatView.topAnchor.constraint(equalTo: gameMenuBar.bottomAnchor).isActive = true
-        chatView.bottomAnchor.constraint(equalTo: keyboardView.topAnchor, constant: -32).isActive = true
-        
-        keyboardView.leadingAnchor.constraint(equalTo: leftProfiles.trailingAnchor, constant: 10).isActive = true
-        keyboardView.trailingAnchor.constraint(equalTo: rightProfiles.leadingAnchor, constant: -10).isActive = true
-        keyboardView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
-        keyboardView.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        backgroundCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        backgroundCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        backgroundCollectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        backgroundCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }
 
 extension GameController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ChatMessageCell
-        cell.backgroundColor = .clear
-        cell.messageTextView.text = messages[indexPath.row].content
-        cell.name.text = messages[indexPath.row].sender
+        //cell.backgroundColor = .clear
+        //cell.messageTextView.text = messages[indexPath.row].content
+        //cell.name.text = messages[indexPath.row].sender
         return cell
     }
 }
 
-extension GameController {
-    @objc func sendPressed() {
-        keyboardView.text = ""
+extension GameController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == self.cardsCollectionView {
+            return 3
+        } else {
+            return 1
+        }
     }
-}
-
-extension GameController: UITextViewDelegate {
-    func textViewDidEndEditing(_ textView: UITextView) {
-        socketHelper.sendMessage(name: "Eugene", message: keyboardView.text, gameId: 123)
-        keyboardView.text = ""
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == self.cardsCollectionView {
+            if indexPath.item == 0 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatCellId, for: indexPath) as! ChatViewCell
+                cell.chatBox.delegate = self
+                cell.chatBox.dataSource = self
+                cell.chatBox.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
+                cell.backgroundColor = .white
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "hi", for: indexPath)
+                return cell
+            }
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: backgroundCellId, for: indexPath) as! BackgroundCell
+            return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == self.cardsCollectionView {
+            return CGSize(width: cardsCollectionView.frame.width*3, height: cardsCollectionView.frame.height)
+        } else {
+            return CGSize(width: backgroundCollectionView.frame.width*3, height: backgroundCollectionView.frame.height)
+        }
     }
 }
 
@@ -180,7 +128,7 @@ extension GameController: SocketHelperDelegate {
     func messageReceived() {
         let message = socketHelper.getMessage()
         messages.append(message)
-        chatView.reloadData()
     }
 }
+
 
