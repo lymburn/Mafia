@@ -144,6 +144,12 @@ extension GameController: BackgroundCellDelegate {
     }
 }
 
+extension GameController: ChatViewCellDelegate {
+    func sendPressed(message: String) {
+        //socketHelper.sendMessage(name: "Eugene", message: message, gameId: 123)
+    }
+}
+
 extension GameController {
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {

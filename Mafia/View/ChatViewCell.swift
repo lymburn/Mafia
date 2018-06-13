@@ -9,14 +9,13 @@
 import UIKit
 
 protocol ChatViewCellDelegate: class {
-    func sendPressed()
+    func sendPressed(message: String)
 }
 
 class ChatViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        addTopBorderToKeyboard()
         chatBox.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
         chatBox.estimatedRowHeight = 100
         chatBox.rowHeight = UITableViewAutomaticDimension
@@ -26,6 +25,12 @@ class ChatViewCell: UICollectionViewCell {
     
     weak var delegate: ChatViewCellDelegate? = nil
     let cellId = "cellId"
+    
+    lazy var lineView: UIView = {
+        let lineView = UIView(frame: CGRect(x: 0, y: frame.height - 40, width: frame.width, height: 1))
+        lineView.backgroundColor=UIColor.red
+        return lineView
+    }()
     
     let chatLabel: UILabel = {
         let label = UILabel()
@@ -53,7 +58,7 @@ class ChatViewCell: UICollectionViewCell {
         textView.textColor = .black
         textView.clipsToBounds = true
         textView.backgroundColor = .clear
-        textView.isScrollEnabled = false
+        textView.isScrollEnabled = true
         textView.returnKeyType = UIReturnKeyType.send
         return textView
     }()
@@ -61,6 +66,7 @@ class ChatViewCell: UICollectionViewCell {
     fileprivate func setupViews() {
         addSubview(chatBox)
         addSubview(keyboardView)
+        addSubview(lineView)
         updateConstraints()
     }
     
@@ -83,34 +89,33 @@ class ChatViewCell: UICollectionViewCell {
     }
 }
 
-fileprivate extension ChatViewCell {
-    func addTopBorderToKeyboard() {
-        //Add border for keyboard
-        print(frame.width)
-        let lineView = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: 1))
-        lineView.backgroundColor=UIColor.red
-        keyboardView.addSubview(lineView)
-    }
-}
-
 extension ChatViewCell: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         let estimatedSize: CGFloat = 34.5
-        keyboardView.constraints.forEach { (constraint) in
+        textView.constraints.forEach { (constraint) in
             if constraint.firstAttribute == .height {
-                UIView.animate(withDuration: 5) {
-                    constraint.constant = estimatedSize*2
-                }
-                
+                constraint.constant = estimatedSize*2
+                lineView.frame.origin.y = frame.height - estimatedSize*2
             }
         }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        lineView.frame.origin.y = frame.height - 40
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         //If send key is pressed
         if(text == "\n") {
             textView.endEditing(true)
-            delegate?.sendPressed()
+            delegate?.sendPressed(message: textView.text)
+            textView.text = ""
+            //Reset text view height
+            textView.constraints.forEach { (constraint) in
+                if constraint.firstAttribute == .height {
+                    constraint.constant = 40
+                }
+            }
             return false
         }
         return true
