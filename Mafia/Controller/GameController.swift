@@ -25,6 +25,9 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         backgroundCollectionView.delegate = self
         backgroundCollectionView.dataSource = self
         backgroundCollectionView.register(BackgroundCell.self, forCellWithReuseIdentifier: backgroundCellId)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     let screenSize: CGRect = UIScreen.main.bounds
@@ -36,13 +39,11 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
     
     let cardsCollectionView: UICollectionView = {
         let screenSize: CGRect = UIScreen.main.bounds
-        let frame = CGRect(x: screenSize.width*0.1, y: screenSize.height, width: screenSize.width*0.8, height: screenSize.height*0.8)
+        let frame = CGRect(x: screenSize.width*0.05, y: screenSize.height, width: screenSize.width*0.9, height: screenSize.height*0.8)
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let col = UICollectionView(frame: frame, collectionViewLayout: layout)
-        col.layer.borderColor = UIColor.red.cgColor
-        col.layer.borderWidth = 1.0
-        col.backgroundColor = UIColor.yellow
+        col.backgroundColor = .clear
         col.translatesAutoresizingMaskIntoConstraints = false
         return col
     }()
@@ -71,6 +72,7 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
     }
 }
 
+//MARK: Table view delegate and data source
 extension GameController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
@@ -85,6 +87,7 @@ extension GameController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+//MARK: Collection views delegate and data source
 extension GameController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.cardsCollectionView {
@@ -134,9 +137,27 @@ extension GameController: SocketHelperDelegate {
 extension GameController: BackgroundCellDelegate {
     func swipedUp() {
         //Slide in cards from bottom
-        let origin: CGFloat = screenSize.height*0.1
+        let origin: CGFloat = screenSize.height*0.15
         UIView.animate(withDuration: 0.35) {
             self.cardsCollectionView.frame.origin.y = origin
+        }
+    }
+}
+
+extension GameController {
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0 {
+                self.view.frame.origin.y += keyboardSize.height
+            }
         }
     }
 }
