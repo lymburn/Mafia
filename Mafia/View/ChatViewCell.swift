@@ -8,11 +8,15 @@
 
 import UIKit
 
+protocol ChatViewCellDelegate: class {
+    func sendPressed()
+}
+
 class ChatViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        
+        addTopBorderToKeyboard()
         chatBox.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
         chatBox.estimatedRowHeight = 100
         chatBox.rowHeight = UITableViewAutomaticDimension
@@ -20,10 +24,7 @@ class ChatViewCell: UICollectionViewCell {
         keyboardView.delegate = self
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
+    weak var delegate: ChatViewCellDelegate? = nil
     let cellId = "cellId"
     
     let chatLabel: UILabel = {
@@ -50,25 +51,16 @@ class ChatViewCell: UICollectionViewCell {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont(name: "Helvetica", size: 16)
         textView.textColor = .black
-        textView.layer.borderColor = UIColor.black.cgColor
-        textView.layer.borderWidth = 1
         textView.clipsToBounds = true
         textView.backgroundColor = .clear
         textView.isScrollEnabled = false
+        textView.returnKeyType = UIReturnKeyType.send
         return textView
-    }()
-    
-    let sendButton: UIButton = {
-        let bt = UIButton()
-        bt.translatesAutoresizingMaskIntoConstraints = false
-        bt.setImage(UIImage(named: "SendButton"), for: .normal)
-        return bt
     }()
     
     fileprivate func setupViews() {
         addSubview(chatBox)
         addSubview(keyboardView)
-        keyboardView.addSubview(sendButton)
         updateConstraints()
     }
     
@@ -84,11 +76,6 @@ class ChatViewCell: UICollectionViewCell {
         keyboardView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         keyboardView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         keyboardView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        sendButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
-        sendButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
-        sendButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        sendButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -96,14 +83,36 @@ class ChatViewCell: UICollectionViewCell {
     }
 }
 
+fileprivate extension ChatViewCell {
+    func addTopBorderToKeyboard() {
+        //Add border for keyboard
+        print(frame.width)
+        let lineView = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: 1))
+        lineView.backgroundColor=UIColor.red
+        keyboardView.addSubview(lineView)
+    }
+}
+
 extension ChatViewCell: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        let size = CGSize(width: frame.width, height: .infinity)
-        let estimatedSize = keyboardView.sizeThatFits(size)
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        let estimatedSize: CGFloat = 34.5
         keyboardView.constraints.forEach { (constraint) in
             if constraint.firstAttribute == .height {
-                constraint.constant = estimatedSize.height
+                UIView.animate(withDuration: 5) {
+                    constraint.constant = estimatedSize*2
+                }
+                
             }
         }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        //If send key is pressed
+        if(text == "\n") {
+            textView.endEditing(true)
+            delegate?.sendPressed()
+            return false
+        }
+        return true
     }
 }
