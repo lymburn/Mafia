@@ -64,7 +64,14 @@ class ChatViewCell: UICollectionViewCell {
         return textView
     }()
     
+    let statusBar: StatusBar = {
+        let sb = StatusBar()
+        sb.translatesAutoresizingMaskIntoConstraints = false
+        return sb
+    }()
+    
     fileprivate func setupViews() {
+        addSubview(statusBar)
         addSubview(chatBox)
         addSubview(keyboardView)
         addSubview(lineView)
@@ -73,10 +80,14 @@ class ChatViewCell: UICollectionViewCell {
     
     override func updateConstraints() {
         super.updateConstraints()
+        statusBar.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        statusBar.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        statusBar.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        statusBar.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         chatBox.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         chatBox.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-        chatBox.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
+        chatBox.topAnchor.constraint(equalTo: statusBar.bottomAnchor, constant: 16).isActive = true
         chatBox.bottomAnchor.constraint(equalTo: keyboardView.topAnchor, constant: -32).isActive = true
         
         keyboardView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true

@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.rootViewController = HomeController()
         window?.makeKeyAndVisible()
+        
+        UIApplication.shared.isStatusBarHidden = true
         return true
     }
 

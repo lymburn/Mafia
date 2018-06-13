@@ -27,6 +27,7 @@
 		26DF850420AFBD8D0058F003 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26DF850220AFBD8D0058F003 /* Main.storyboard */; };
 		26DF850620AFBD8F0058F003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26DF850520AFBD8F0058F003 /* Assets.xcassets */; };
 		26DF850920AFBD8F0058F003 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26DF850720AFBD8F0058F003 /* LaunchScreen.storyboard */; };
+		26F7EB4520D1AACC00172616 /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F7EB4420D1AACC00172616 /* StatusBar.swift */; };
 		8E3FA2725357C00F69ADF5D1 /* Pods_Mafia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9139689DE0E92035E7879447 /* Pods_Mafia.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		26DF850520AFBD8F0058F003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		26DF850820AFBD8F0058F003 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		26DF850A20AFBD8F0058F003 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		26F7EB4420D1AACC00172616 /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
 		9139689DE0E92035E7879447 /* Pods_Mafia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mafia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCD5FCA9F64CB3C82525A372 /* Pods-Mafia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mafia.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mafia/Pods-Mafia.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,6 +146,7 @@
 				2662277720CC7B2300217901 /* ChatMessageCell.swift */,
 				26A5F24020CF324F005E2280 /* ChatViewCell.swift */,
 				26A5F24220D0637C005E2280 /* BackgroundCell.swift */,
+				26F7EB4420D1AACC00172616 /* StatusBar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26F7EB4520D1AACC00172616 /* StatusBar.swift in Sources */,
 				26DF850120AFBD8D0058F003 /* HomeController.swift in Sources */,
 				262628BE20CA3C1000EE9F0D /* CreateController.swift in Sources */,
 				2661D5C420CA0877003A6A02 /* JoinController.swift in Sources */,
@@ -445,7 +449,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UJ6RY8Y8CY;
 				INFOPLIST_FILE = Mafia/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.eugenelu.mafia.Mafia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -461,7 +468,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UJ6RY8Y8CY;
 				INFOPLIST_FILE = Mafia/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.eugenelu.mafia.Mafia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
