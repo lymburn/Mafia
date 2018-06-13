@@ -15,6 +15,7 @@ protocol ChatViewCellDelegate: class {
 class ChatViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .white
         setupViews()
         chatBox.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
         chatBox.estimatedRowHeight = 100

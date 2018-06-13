@@ -104,7 +104,6 @@ extension GameController: UICollectionViewDelegate, UICollectionViewDataSource {
                 cell.chatBox.delegate = self
                 cell.chatBox.dataSource = self
                 cell.chatBox.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
-                cell.backgroundColor = .white
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "hi", for: indexPath)

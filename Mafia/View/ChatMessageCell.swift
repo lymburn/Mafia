@@ -39,19 +39,33 @@ class ChatMessageCell: UITableViewCell {
         return label
     }()
     
+    let profilePic: UIImageView = {
+        let iv = UIImageView(image: UIImage(named: "SendButton"))
+        iv.contentMode = .scaleAspectFit
+        iv.clipsToBounds = true
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }()
+    
     fileprivate func setupViews() {
         addSubview(messageTextView)
         addSubview(name)
+        addSubview(profilePic)
         updateConstraints()
     }
     
     override func updateConstraints() {
         super.updateConstraints()
+        profilePic.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
+        profilePic.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+        profilePic.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        profilePic.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
         name.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        name.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
+        name.leadingAnchor.constraint(equalTo: profilePic.trailingAnchor, constant: 12).isActive = true
         name.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         
-        messageTextView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+        messageTextView.leadingAnchor.constraint(equalTo: profilePic.trailingAnchor, constant: 12).isActive = true
         messageTextView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -16).isActive = true
         messageTextView.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 8).isActive = true
         messageTextView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
