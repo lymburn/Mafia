@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol BackgroundCellDelegate: class {
+    func swipedUp()
+}
+
 class BackgroundCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,14 +22,16 @@ class BackgroundCell: UICollectionViewCell {
         backgroundImage.addGestureRecognizer(swipeUp)
     }
     
+    weak var delegate: BackgroundCellDelegate? = nil
+    
     @objc func swipedUp() {
-        print("swiped")
+        delegate?.swipedUp()
     }
 
     let backgroundImage: UIImageView = {
         let iv = UIImageView(image: UIImage(named: "Day copy"))
         iv.clipsToBounds = true
-        iv.contentMode = .scaleAspectFill
+        iv.contentMode = .bottom
         iv.isUserInteractionEnabled = true
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv

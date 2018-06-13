@@ -25,7 +25,6 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         backgroundCollectionView.delegate = self
         backgroundCollectionView.dataSource = self
         backgroundCollectionView.register(BackgroundCell.self, forCellWithReuseIdentifier: backgroundCellId)
-
     }
     
     let screenSize: CGRect = UIScreen.main.bounds
@@ -36,7 +35,8 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
     var socketHelper: SocketHelper!
     
     let cardsCollectionView: UICollectionView = {
-        let frame = CGRect(x: 25, y: 50, width: UIScreen.main.bounds.width*0.8, height: UIScreen.main.bounds.height*0.8)
+        let screenSize: CGRect = UIScreen.main.bounds
+        let frame = CGRect(x: screenSize.width*0.1, y: screenSize.height, width: screenSize.width*0.8, height: screenSize.height*0.8)
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let col = UICollectionView(frame: frame, collectionViewLayout: layout)
@@ -56,10 +56,8 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
     }()
     
     fileprivate func setupViews() {
-        view.backgroundColor = UIColor(rgb: 0x181F42)
-                view.addSubview(cardsCollectionView)
         view.addSubview(backgroundCollectionView)
-
+        view.addSubview(cardsCollectionView)
         self.updateViewConstraints()
     }
     
@@ -111,15 +109,17 @@ extension GameController: UICollectionViewDelegate, UICollectionViewDataSource {
             }
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: backgroundCellId, for: indexPath) as! BackgroundCell
+            cell.delegate = self
             return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == self.cardsCollectionView {
-            return CGSize(width: cardsCollectionView.frame.width*3, height: cardsCollectionView.frame.height)
+            return CGSize(width: cardsCollectionView.frame.width, height: cardsCollectionView.frame.height)
         } else {
-            return CGSize(width: backgroundCollectionView.frame.width*3, height: backgroundCollectionView.frame.height)
+            let multiplier = 1281/backgroundCollectionView.frame.width
+            return CGSize(width: backgroundCollectionView.frame.width*multiplier, height: backgroundCollectionView.frame.height)
         }
     }
 }
@@ -128,6 +128,16 @@ extension GameController: SocketHelperDelegate {
     func messageReceived() {
         let message = socketHelper.getMessage()
         messages.append(message)
+    }
+}
+
+extension GameController: BackgroundCellDelegate {
+    func swipedUp() {
+        //Slide in cards from bottom
+        let origin: CGFloat = screenSize.height*0.1
+        UIView.animate(withDuration: 0.35) {
+            self.cardsCollectionView.frame.origin.y = origin
+        }
     }
 }
 
