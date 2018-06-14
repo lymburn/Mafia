@@ -32,7 +32,7 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
     
     override func viewDidLayoutSubviews() {
         //Round corners for only top
-        statusBar.round(corners: [.topRight, .topLeft], radius: 10)
+        statusBar.round(corners: [.topRight, .topLeft], radius: 15)
     }
     
     let screenSize: CGRect = UIScreen.main.bounds
@@ -45,21 +45,13 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
     var socketHelper: SocketHelper!
     
     let phoneCollectionView: UICollectionView = {
-        let screenSize: CGRect = UIScreen.main.bounds
-        let frame = CGRect(x: screenSize.width*0.05, y: screenSize.height, width: screenSize.width*0.9, height: screenSize.height*0.9)
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        let col = UICollectionView(frame: frame, collectionViewLayout: layout)
-        col.backgroundColor = .white
+        let col = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        col.backgroundColor = UIColor.white
         col.translatesAutoresizingMaskIntoConstraints = false
         col.showsHorizontalScrollIndicator = false
-        col.layer.shadowColor = UIColor.black.cgColor
-        col.layer.shadowOffset = CGSize(width: 0, height: 5)
-        col.layer.shadowOpacity = 20
-        col.layer.shadowRadius = 5
-        col.layer.cornerRadius = 10
-        col.clipsToBounds = false
-        col.layer.masksToBounds = false
+        col.layer.cornerRadius = 15
         return col
     }()
     
@@ -92,6 +84,11 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         backgroundCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         backgroundCollectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         backgroundCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        phoneCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.05).isActive = true
+        phoneCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.05).isActive = true
+        phoneCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: screenSize.height).isActive = true
+        phoneCollectionView.heightAnchor.constraint(equalToConstant: screenSize.height*0.9).isActive = true
         
         statusBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.05 - 1).isActive = true
         statusBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.05).isActive = true
@@ -138,7 +135,7 @@ extension GameController: UICollectionViewDelegate, UICollectionViewDataSource {
                 cell.chatBox.delegate = self
                 cell.chatBox.dataSource = self
                 cell.chatBox.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
-                cell.backgroundColor = UIColor.white
+                cell.backgroundColor = UIColor(rgb: 0xF5F6FA)
                 return cell
             }
             
@@ -170,10 +167,9 @@ extension GameController: SocketHelperDelegate {
 //MARK: Background delegate methods
 extension GameController: BackgroundCellDelegate {
     func swipedUp() {
-        //Slide in cards from bottom
-        let origin: CGFloat = screenSize.height*0.05
+        //Slide in phone from bottom
         UIView.animate(withDuration: 0.5) {
-            self.phoneCollectionView.frame.origin.y = origin
+            self.phoneCollectionView.transform = CGAffineTransform(translationX: 0, y: -self.screenSize.height*0.95)
             self.statusBar.transform = CGAffineTransform(translationX: 0, y: -self.screenSize.height*0.95)
         }
     }
@@ -201,14 +197,6 @@ extension GameController {
                 self.view.frame.origin.y += keyboardSize.height
             }
         }
-    }
-}
-
-extension NSLayoutConstraint {
-    
-    override open var description: String {
-        let id = identifier ?? ""
-        return "id: \(id), constant: \(constant)" //you may print whatever you want here
     }
 }
 

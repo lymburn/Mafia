@@ -11,7 +11,6 @@ import UIKit
 class PlayerCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = UIColor.white
         setupViews()
     }
     
@@ -36,7 +35,6 @@ class PlayerCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.lightGray
-        label.backgroundColor = .white
         label.font = UIFont(name: "Helvetica", size: 16)
         label.numberOfLines = 1
         return label
