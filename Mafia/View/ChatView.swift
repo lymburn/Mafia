@@ -45,10 +45,17 @@ class ChatView: UICollectionViewCell {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.separatorColor = .clear
+        tv.showsVerticalScrollIndicator = false
         tv.allowsSelection = false
         tv.tableFooterView = UIView()
         tv.backgroundColor = .clear
         return tv
+    }()
+    
+    let chatHeader: ChatHeaderBar = {
+        let ch = ChatHeaderBar()
+        ch.translatesAutoresizingMaskIntoConstraints = false
+        return ch
     }()
     
     let keyboardView: UITextView = {
@@ -66,6 +73,7 @@ class ChatView: UICollectionViewCell {
     
     fileprivate func setupViews() {
         addSubview(chatBox)
+        addSubview(chatHeader)
         addSubview(keyboardView)
         updateConstraints()
     }
@@ -73,9 +81,14 @@ class ChatView: UICollectionViewCell {
     override func updateConstraints() {
         super.updateConstraints()
         
+        chatHeader.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        chatHeader.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        chatHeader.topAnchor.constraint(equalTo: topAnchor, constant: 30).isActive = true
+        chatHeader.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        
         chatBox.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         chatBox.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-        chatBox.topAnchor.constraint(equalTo: topAnchor, constant: 46).isActive = true
+        chatBox.topAnchor.constraint(equalTo: chatHeader.bottomAnchor).isActive = true
         chatBox.bottomAnchor.constraint(equalTo: keyboardView.topAnchor, constant: -32).isActive = true
         
         keyboardView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
@@ -116,19 +129,21 @@ extension ChatView: UITextViewDelegate {
         let maxHeight: CGFloat = 62.0 //Max size for 2 lines
         
         if estimatedSize.height > minHeight && estimatedSize.height <= maxHeight {
-            print(estimatedSize.height)
+            //Expand to next line
             textView.constraints.forEach { (constraint) in
                 if constraint.firstAttribute == .height {
                     constraint.constant = estimatedSize.height
                 }
             }
         } else if estimatedSize.height < minHeight {
+            //Change back to 1 line
             textView.constraints.forEach { (constraint) in
                 if constraint.firstAttribute == .height {
                     constraint.constant = 50
                 }
             }
         } else {
+            //Enable scroll if number of lines is over 2
             textView.isScrollEnabled = true
         }
     }
