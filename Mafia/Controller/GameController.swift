@@ -41,20 +41,22 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
     let backgroundCellId = "backgroundCellId"
     var messages = [Message]()
     var socketHelper: SocketHelper!
-    var topStatusBarConstraint: NSLayoutConstraint!
     
     let phoneCollectionView: UICollectionView = {
         let screenSize: CGRect = UIScreen.main.bounds
-        let frame = CGRect(x: screenSize.width*0.1, y: screenSize.height, width: screenSize.width*0.8, height: screenSize.height*0.8)
+        let frame = CGRect(x: screenSize.width*0.05, y: screenSize.height, width: screenSize.width*0.9, height: screenSize.height*0.9)
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let col = UICollectionView(frame: frame, collectionViewLayout: layout)
-        col.backgroundColor = .clear
-        col.layer.cornerRadius = 10
-        col.layer.borderColor = UIColor.black.cgColor
-        col.layer.borderWidth = 3
+        col.backgroundColor = .white
         col.translatesAutoresizingMaskIntoConstraints = false
         col.showsHorizontalScrollIndicator = false
+        col.layer.shadowColor = UIColor.black.cgColor
+        col.layer.shadowOffset = CGSize(width: 0, height: 5)
+        col.layer.shadowOpacity = 1
+        col.layer.shadowRadius = 5
+        col.clipsToBounds = false
+        col.layer.masksToBounds = false
         return col
     }()
     
@@ -88,21 +90,15 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         backgroundCollectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         backgroundCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
-        statusBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.1).isActive = true
-        statusBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.1).identifier = "leading"
-        statusBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.1).isActive = true
-        statusBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.1).identifier = "trail"
+        statusBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.05 - 1).isActive = true
+        statusBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.05).isActive = true
         statusBar.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        statusBar.heightAnchor.constraint(equalToConstant: 30).identifier = "height"
-        
-        topStatusBarConstraint = statusBar.topAnchor.constraint(equalTo: view.topAnchor, constant: screenSize.height)
-        topStatusBarConstraint?.isActive = true
-        topStatusBarConstraint?.identifier = "top"
+        statusBar.topAnchor.constraint(equalTo: view.topAnchor, constant: screenSize.height).isActive = true
     }
 }
 
-//MARK: Table view delegate and data source for the chat log
-extension GameController: UITableViewDelegate, UITableViewDataSource {
+//MARK: Table view data source for the chat log
+extension GameController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
@@ -113,6 +109,13 @@ extension GameController: UITableViewDelegate, UITableViewDataSource {
         //cell.messageTextView.text = messages[indexPath.row].content
         //cell.name.text = messages[indexPath.row].sender
         return cell
+    }
+}
+
+//MARK: Table view delegate methods for managing the player list
+extension GameController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }
 
@@ -132,7 +135,7 @@ extension GameController: UICollectionViewDelegate, UICollectionViewDataSource {
                 cell.chatBox.delegate = self
                 cell.chatBox.dataSource = self
                 cell.chatBox.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
-                cell.backgroundColor = UIColor.rgb(230, 230, 230, 1)
+                cell.backgroundColor = UIColor.white
                 return cell
             }
             
@@ -161,13 +164,14 @@ extension GameController: SocketHelperDelegate {
     }
 }
 
+//MARK: Background delegate methods
 extension GameController: BackgroundCellDelegate {
     func swipedUp() {
         //Slide in cards from bottom
-        let origin: CGFloat = screenSize.height*0.1
+        let origin: CGFloat = screenSize.height*0.05
         UIView.animate(withDuration: 0.5) {
             self.phoneCollectionView.frame.origin.y = origin
-            self.statusBar.transform = CGAffineTransform(translationX: 0, y: -self.screenSize.height*0.9)
+            self.statusBar.transform = CGAffineTransform(translationX: 0, y: -self.screenSize.height*0.95)
         }
     }
 }
@@ -178,6 +182,7 @@ extension GameController: ChatViewDelegate {
     }
 }
 
+//MARK: View management methods for the keyboard
 extension GameController {
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {

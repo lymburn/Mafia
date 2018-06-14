@@ -43,13 +43,14 @@ class ChatView: UICollectionViewCell {
     }()
     
     let chatBox: UITableView = {
-        let cv = UITableView()
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.separatorColor = .clear
-        cv.allowsSelection = false
-        cv.tableFooterView = UIView()
-        cv.backgroundColor = .clear
-        return cv
+        let tv = UITableView()
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.separatorColor = .clear
+        tv.allowsSelection = false
+        tv.tableFooterView = UIView()
+        tv.backgroundColor = .clear
+        tv.allowsSelection = false
+        return tv
     }()
     
     let keyboardView: UITextView = {

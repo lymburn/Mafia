@@ -15,23 +15,34 @@ class PlayerListView: UICollectionViewCell {
         playerTable.register(PlayerCell.self, forCellReuseIdentifier: cellId)
         playerTable.rowHeight = 100
         
-        playerTable.dataSource = playerTableDataSource
+        playerTable.dataSource = dataSource
     }
     
+    let dataSource = PlayerTableDataSource()
     let cellId = "cellId"
-    let playerTableDataSource = PlayerTableDataSource()
+    
+    let header: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Messages"
+        label.textAlignment = .center
+        label.textColor = UIColor.rgb(51, 51, 51, 1)
+        label.backgroundColor = .white
+        label.font = UIFont(name: "Magical Mystery Tour", size: 40)
+        return label
+    }()
     
     let playerTable: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.separatorColor = .black
-        tv.separatorInset = .zero
+        tv.separatorColor = .clear
         tv.allowsSelection = false
         tv.tableFooterView = UIView()
         return tv
     }()
     
     fileprivate func setupViews() {
+        addSubview(header)
         addSubview(playerTable)
         updateConstraints()
     }
@@ -39,9 +50,14 @@ class PlayerListView: UICollectionViewCell {
     override func updateConstraints() {
         super.updateConstraints()
         
+        header.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        header.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        header.topAnchor.constraint(equalTo: topAnchor, constant: 38).isActive = true
+        header.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
         playerTable.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         playerTable.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        playerTable.topAnchor.constraint(equalTo: topAnchor, constant: 30).isActive = true
+        playerTable.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 8).isActive = true
         playerTable.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
     
