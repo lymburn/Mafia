@@ -49,7 +49,6 @@ class ChatView: UICollectionViewCell {
         tv.allowsSelection = false
         tv.tableFooterView = UIView()
         tv.backgroundColor = .clear
-        tv.allowsSelection = false
         return tv
     }()
     

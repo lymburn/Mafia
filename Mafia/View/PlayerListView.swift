@@ -36,7 +36,6 @@ class PlayerListView: UICollectionViewCell {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.separatorColor = .clear
-        tv.allowsSelection = false
         tv.tableFooterView = UIView()
         tv.backgroundColor = .clear
         return tv

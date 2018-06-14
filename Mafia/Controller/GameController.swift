@@ -115,7 +115,9 @@ extension GameController: UITableViewDataSource {
 //MARK: Table view delegate methods for managing the player list
 extension GameController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        //Scroll to chat view
+        phoneCollectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .right, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -129,13 +131,13 @@ extension GameController: UICollectionViewDelegate, UICollectionViewDataSource {
         if collectionView == self.phoneCollectionView {
             if indexPath.item == 0 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: playerListViewId, for: indexPath) as! PlayerListView
+                cell.playerTable.delegate = self
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatCellId, for: indexPath) as! ChatView
-                cell.chatBox.delegate = self
                 cell.chatBox.dataSource = self
                 cell.chatBox.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
-                cell.backgroundColor = UIColor(rgb: 0xF5F6FA)
+                cell.backgroundColor = UIColor.white
                 return cell
             }
             
