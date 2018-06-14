@@ -29,7 +29,7 @@ class ChatView: UICollectionViewCell {
     
     lazy var lineView: UIView = {
         let lineView = UIView(frame: CGRect(x: 0, y: frame.height - 40, width: frame.width, height: 1))
-        lineView.backgroundColor=UIColor.red
+        lineView.backgroundColor = UIColor(rgb: 0xdcdde1)
         return lineView
     }()
     
@@ -56,9 +56,10 @@ class ChatView: UICollectionViewCell {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont(name: "Helvetica", size: 16)
-        textView.textColor = .black
+        textView.textColor = UIColor(rgb: 0x718093)
+        textView.text = "Type your message here..."
         textView.clipsToBounds = true
-        textView.backgroundColor = .clear
+        textView.backgroundColor = UIColor(rgb: 0xdcdde1)
         textView.isScrollEnabled = true
         textView.returnKeyType = UIReturnKeyType.send
         return textView
@@ -99,24 +100,35 @@ extension ChatView: UITextViewDelegate {
                 lineView.frame.origin.y = frame.height - estimatedSize*2
             }
         }
+        
+        //Manage placeholder
+        if textView.textColor == UIColor(rgb: 0x718093) {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         lineView.frame.origin.y = frame.height - 40
+        
+        if textView.text.isEmpty {
+            textView.text = "Type your message here..."
+            textView.textColor = UIColor(rgb: 0x718093)
+        }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         //If send key is pressed
         if(text == "\n") {
-            textView.endEditing(true)
             delegate?.sendPressed(message: textView.text)
-            textView.text = ""
+            textView.text = nil
             //Reset text view height
             textView.constraints.forEach { (constraint) in
                 if constraint.firstAttribute == .height {
                     constraint.constant = 40
                 }
             }
+            textView.endEditing(true)
             return false
         }
         return true

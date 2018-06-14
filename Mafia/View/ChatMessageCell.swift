@@ -35,12 +35,12 @@ class ChatMessageCell: UITableViewCell {
         label.text = "Eugene"
         label.font = UIFont(name: "Helvetica", size: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.lightGray
+        label.textColor = UIColor.rgb(51, 51, 51, 1)
         return label
     }()
     
     let profilePic: UIImageView = {
-        let iv = UIImageView(image: UIImage(named: "SendButton"))
+        let iv = UIImageView(image: UIImage(named: "Stock 1"))
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false

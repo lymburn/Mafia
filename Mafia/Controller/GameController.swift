@@ -47,11 +47,14 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
     let phoneCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
         let col = UICollectionView(frame: .zero, collectionViewLayout: layout)
         col.backgroundColor = UIColor.white
         col.translatesAutoresizingMaskIntoConstraints = false
         col.showsHorizontalScrollIndicator = false
+        col.isScrollEnabled = false
         col.layer.cornerRadius = 15
+        col.isPagingEnabled = true
         return col
     }()
     
@@ -116,6 +119,7 @@ extension GameController: UITableViewDataSource {
 extension GameController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Scroll to chat view
+        phoneCollectionView.isScrollEnabled = true
         phoneCollectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .right, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
