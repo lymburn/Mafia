@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol ChatViewCellDelegate: class {
+protocol ChatViewDelegate: class {
     func sendPressed(message: String)
 }
 
-class ChatViewCell: UICollectionViewCell {
+class ChatView: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
@@ -24,7 +24,7 @@ class ChatViewCell: UICollectionViewCell {
         keyboardView.delegate = self
     }
     
-    weak var delegate: ChatViewCellDelegate? = nil
+    weak var delegate: ChatViewDelegate? = nil
     let cellId = "cellId"
     
     lazy var lineView: UIView = {
@@ -64,14 +64,7 @@ class ChatViewCell: UICollectionViewCell {
         return textView
     }()
     
-    let statusBar: StatusBar = {
-        let sb = StatusBar()
-        sb.translatesAutoresizingMaskIntoConstraints = false
-        return sb
-    }()
-    
     fileprivate func setupViews() {
-        addSubview(statusBar)
         addSubview(chatBox)
         addSubview(keyboardView)
         addSubview(lineView)
@@ -80,14 +73,10 @@ class ChatViewCell: UICollectionViewCell {
     
     override func updateConstraints() {
         super.updateConstraints()
-        statusBar.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        statusBar.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        statusBar.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        statusBar.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         chatBox.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         chatBox.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-        chatBox.topAnchor.constraint(equalTo: statusBar.bottomAnchor, constant: 16).isActive = true
+        chatBox.topAnchor.constraint(equalTo: topAnchor, constant: 46).isActive = true
         chatBox.bottomAnchor.constraint(equalTo: keyboardView.topAnchor, constant: -32).isActive = true
         
         keyboardView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
@@ -101,7 +90,7 @@ class ChatViewCell: UICollectionViewCell {
     }
 }
 
-extension ChatViewCell: UITextViewDelegate {
+extension ChatView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         let estimatedSize: CGFloat = 34.5
         textView.constraints.forEach { (constraint) in

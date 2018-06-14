@@ -19,13 +19,16 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         
         phoneCollectionView.delegate = self
         phoneCollectionView.dataSource = self
-        phoneCollectionView.register(ChatViewCell.self, forCellWithReuseIdentifier: chatCellId)
-        phoneCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "hi")
+        phoneCollectionView.register(ChatView.self, forCellWithReuseIdentifier: chatCellId)
+        phoneCollectionView.register(PlayerListView.self, forCellWithReuseIdentifier: playerListViewId)
         
         backgroundCollectionView.delegate = self
         backgroundCollectionView.dataSource = self
         backgroundCollectionView.register(BackgroundCell.self, forCellWithReuseIdentifier: backgroundCellId)
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
@@ -33,9 +36,12 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
     let screenSize: CGRect = UIScreen.main.bounds
     let cellId = "cellId"
     let chatCellId = "chatCellId"
+    let playerListViewId = "PlayerListViewId"
+
     let backgroundCellId = "backgroundCellId"
     var messages = [Message]()
     var socketHelper: SocketHelper!
+    var topStatusBarConstraint: NSLayoutConstraint!
     
     let phoneCollectionView: UICollectionView = {
         let screenSize: CGRect = UIScreen.main.bounds
@@ -52,6 +58,12 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         return col
     }()
     
+    let statusBar: StatusBar = {
+        let sb = StatusBar()
+        sb.translatesAutoresizingMaskIntoConstraints = false
+        return sb
+    }()
+    
     let backgroundCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -64,6 +76,7 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
     fileprivate func setupViews() {
         view.addSubview(backgroundCollectionView)
         view.addSubview(phoneCollectionView)
+        view.addSubview(statusBar)
         self.updateViewConstraints()
     }
     
@@ -74,13 +87,24 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         backgroundCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         backgroundCollectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         backgroundCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        statusBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.1).isActive = true
+        statusBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.1).identifier = "leading"
+        statusBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.1).isActive = true
+        statusBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.1).identifier = "trail"
+        statusBar.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        statusBar.heightAnchor.constraint(equalToConstant: 30).identifier = "height"
+        
+        topStatusBarConstraint = statusBar.topAnchor.constraint(equalTo: view.topAnchor, constant: screenSize.height)
+        topStatusBarConstraint?.isActive = true
+        topStatusBarConstraint?.identifier = "top"
     }
 }
 
-//MARK: Table view delegate and data source
+//MARK: Table view delegate and data source for the chat log
 extension GameController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -95,27 +119,25 @@ extension GameController: UITableViewDelegate, UITableViewDataSource {
 //MARK: Collection views delegate and data source
 extension GameController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.phoneCollectionView {
-            return 2
-        } else {
-            return 1
-        }
+        return collectionView == self.phoneCollectionView ? 2 : 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.phoneCollectionView {
             if indexPath.item == 0 {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatCellId, for: indexPath) as! ChatViewCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: playerListViewId, for: indexPath) as! PlayerListView
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatCellId, for: indexPath) as! ChatView
                 cell.chatBox.delegate = self
                 cell.chatBox.dataSource = self
                 cell.chatBox.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
                 cell.backgroundColor = UIColor.rgb(230, 230, 230, 1)
                 return cell
-            } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "hi", for: indexPath)
-                return cell
             }
+            
         } else {
+            //Background view
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: backgroundCellId, for: indexPath) as! BackgroundCell
             cell.delegate = self
             return cell
@@ -143,13 +165,14 @@ extension GameController: BackgroundCellDelegate {
     func swipedUp() {
         //Slide in cards from bottom
         let origin: CGFloat = screenSize.height*0.1
-        UIView.animate(withDuration: 0.35) {
+        UIView.animate(withDuration: 0.5) {
             self.phoneCollectionView.frame.origin.y = origin
+            self.statusBar.transform = CGAffineTransform(translationX: 0, y: -self.screenSize.height*0.9)
         }
     }
 }
 
-extension GameController: ChatViewCellDelegate {
+extension GameController: ChatViewDelegate {
     func sendPressed(message: String) {
         //socketHelper.sendMessage(name: "Eugene", message: message, gameId: 123)
     }
@@ -170,6 +193,14 @@ extension GameController {
                 self.view.frame.origin.y += keyboardSize.height
             }
         }
+    }
+}
+
+extension NSLayoutConstraint {
+    
+    override open var description: String {
+        let id = identifier ?? ""
+        return "id: \(id), constant: \(constant)" //you may print whatever you want here
     }
 }
 
