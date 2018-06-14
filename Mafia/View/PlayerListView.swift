@@ -27,7 +27,7 @@ class PlayerListView: UICollectionViewCell {
         label.text = "Messages"
         label.textAlignment = .center
         label.textColor = UIColor.rgb(51, 51, 51, 1)
-        label.backgroundColor = .white
+        label.backgroundColor = .clear
         label.font = UIFont(name: "Magical Mystery Tour", size: 40)
         return label
     }()
@@ -38,6 +38,7 @@ class PlayerListView: UICollectionViewCell {
         tv.separatorColor = .clear
         tv.allowsSelection = false
         tv.tableFooterView = UIView()
+        tv.backgroundColor = .clear
         return tv
     }()
     

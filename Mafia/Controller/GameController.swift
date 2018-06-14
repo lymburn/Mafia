@@ -26,11 +26,13 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         backgroundCollectionView.dataSource = self
         backgroundCollectionView.register(BackgroundCell.self, forCellWithReuseIdentifier: backgroundCellId)
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        //Round corners for only top
+        statusBar.round(corners: [.topRight, .topLeft], radius: 10)
     }
     
     let screenSize: CGRect = UIScreen.main.bounds
@@ -53,8 +55,9 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         col.showsHorizontalScrollIndicator = false
         col.layer.shadowColor = UIColor.black.cgColor
         col.layer.shadowOffset = CGSize(width: 0, height: 5)
-        col.layer.shadowOpacity = 1
+        col.layer.shadowOpacity = 20
         col.layer.shadowRadius = 5
+        col.layer.cornerRadius = 10
         col.clipsToBounds = false
         col.layer.masksToBounds = false
         return col
