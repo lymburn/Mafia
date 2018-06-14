@@ -24,14 +24,13 @@ class ChatView: UICollectionViewCell {
         keyboardView.delegate = self
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        keyboardView.centerVertically()
+    }
+    
     weak var delegate: ChatViewDelegate? = nil
     let cellId = "cellId"
-    
-    lazy var lineView: UIView = {
-        let lineView = UIView(frame: CGRect(x: 0, y: frame.height - 40, width: frame.width, height: 1))
-        lineView.backgroundColor = UIColor(rgb: 0xdcdde1)
-        return lineView
-    }()
     
     let chatLabel: UILabel = {
         let label = UILabel()
@@ -55,12 +54,12 @@ class ChatView: UICollectionViewCell {
     let keyboardView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.font = UIFont(name: "Helvetica", size: 16)
+        textView.font = UIFont(name: "Helvetica", size: 20)
         textView.textColor = UIColor(rgb: 0x718093)
         textView.text = "Type your message here..."
         textView.clipsToBounds = true
         textView.backgroundColor = UIColor(rgb: 0xdcdde1)
-        textView.isScrollEnabled = true
+        textView.isScrollEnabled = false
         textView.returnKeyType = UIReturnKeyType.send
         return textView
     }()
@@ -68,7 +67,6 @@ class ChatView: UICollectionViewCell {
     fileprivate func setupViews() {
         addSubview(chatBox)
         addSubview(keyboardView)
-        addSubview(lineView)
         updateConstraints()
     }
     
@@ -83,7 +81,7 @@ class ChatView: UICollectionViewCell {
         keyboardView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         keyboardView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         keyboardView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        keyboardView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        keyboardView.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -93,13 +91,7 @@ class ChatView: UICollectionViewCell {
 
 extension ChatView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        let estimatedSize: CGFloat = 34.5
-        textView.constraints.forEach { (constraint) in
-            if constraint.firstAttribute == .height {
-                constraint.constant = estimatedSize*2
-                lineView.frame.origin.y = frame.height - estimatedSize*2
-            }
-        }
+        textView.isScrollEnabled = false
         
         //Manage placeholder
         if textView.textColor == UIColor(rgb: 0x718093) {
@@ -109,11 +101,35 @@ extension ChatView: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        lineView.frame.origin.y = frame.height - 40
-        
+        textView.isScrollEnabled = false
+        //Replace text with placeholder
         if textView.text.isEmpty {
             textView.text = "Type your message here..."
             textView.textColor = UIColor(rgb: 0x718093)
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let size = CGSize(width: frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        let minHeight: CGFloat = 50.0 //Minimum height of text view
+        let maxHeight: CGFloat = 62.0 //Max size for 2 lines
+        
+        if estimatedSize.height > minHeight && estimatedSize.height <= maxHeight {
+            print(estimatedSize.height)
+            textView.constraints.forEach { (constraint) in
+                if constraint.firstAttribute == .height {
+                    constraint.constant = estimatedSize.height
+                }
+            }
+        } else if estimatedSize.height < minHeight {
+            textView.constraints.forEach { (constraint) in
+                if constraint.firstAttribute == .height {
+                    constraint.constant = 50
+                }
+            }
+        } else {
+            textView.isScrollEnabled = true
         }
     }
     
@@ -125,7 +141,7 @@ extension ChatView: UITextViewDelegate {
             //Reset text view height
             textView.constraints.forEach { (constraint) in
                 if constraint.firstAttribute == .height {
-                    constraint.constant = 40
+                    constraint.constant = 50
                 }
             }
             textView.endEditing(true)
