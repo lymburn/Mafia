@@ -14,6 +14,7 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        addSwipeDownGesture()
         
         socketHelper.delegate = self
         
@@ -26,6 +27,10 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         backgroundCollectionView.dataSource = self
         backgroundCollectionView.register(BackgroundCell.self, forCellWithReuseIdentifier: backgroundCellId)
         
+        notificationCollectionView.delegate = self
+        notificationCollectionView.dataSource = self
+        notificationCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: notificationCellId)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
@@ -33,13 +38,14 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
     override func viewDidLayoutSubviews() {
         //Round corners for only top
         statusBar.round(corners: [.topRight, .topLeft], radius: 15)
+        notificationCollectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .bottom, animated: false)
     }
     
     let screenSize: CGRect = UIScreen.main.bounds
     let cellId = "cellId"
     let chatCellId = "chatCellId"
     let playerListViewId = "PlayerListViewId"
-
+    let notificationCellId = "notificationCellId"
     let backgroundCellId = "backgroundCellId"
     var messages = [Message]()
     var socketHelper: SocketHelper!
@@ -64,6 +70,29 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         return sb
     }()
     
+    let notificationView: NotificationView = {
+        let nv = NotificationView()
+        nv.translatesAutoresizingMaskIntoConstraints = false
+        nv.backgroundColor = .white
+        nv.layer.cornerRadius = 15
+        nv.alpha = 0
+        return nv
+    }()
+    
+    let notificationCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 0
+        let col = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        col.backgroundColor = UIColor.clear
+        col.translatesAutoresizingMaskIntoConstraints = false
+        col.showsVerticalScrollIndicator = false
+        col.layer.cornerRadius = 15
+        col.isPagingEnabled = true
+        col.alpha = 1
+        return col
+    }()
+    
     let backgroundCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -73,10 +102,20 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         return col
     }()
     
+    fileprivate func addSwipeDownGesture() {
+        //Swipe down gesture for status bar
+        let tap = UILongPressGestureRecognizer(target: self, action: #selector(swipedDown))
+        tap.minimumPressDuration = 0
+        statusBar.addGestureRecognizer(tap)
+    }
+    
     fileprivate func setupViews() {
+        view.addSubview(notificationCollectionView)
+        view.addSubview(notificationView)
         view.addSubview(backgroundCollectionView)
         view.addSubview(phoneCollectionView)
         view.addSubview(statusBar)
+        
         self.updateViewConstraints()
     }
     
@@ -93,10 +132,20 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         phoneCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: screenSize.height).isActive = true
         phoneCollectionView.heightAnchor.constraint(equalToConstant: screenSize.height*0.9).isActive = true
         
+        notificationCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.05).isActive = true
+        notificationCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.05).isActive = true
+        notificationCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: screenSize.height*0.05).isActive = true
+        notificationCollectionView.heightAnchor.constraint(equalToConstant: screenSize.height*0.9).isActive = true
+        
         statusBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.05 - 1).isActive = true
         statusBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.05).isActive = true
         statusBar.heightAnchor.constraint(equalToConstant: 30).isActive = true
         statusBar.topAnchor.constraint(equalTo: view.topAnchor, constant: screenSize.height).isActive = true
+        
+        notificationView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.05).isActive = true
+        notificationView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.05).isActive = true
+        //notificationView.heightAnchor.constraint(equalToConstant: screenSize.height*0.9).isActive = true
+        notificationView.topAnchor.constraint(equalTo: view.topAnchor, constant: screenSize.height*0.05).isActive = true
     }
 }
 
@@ -129,7 +178,7 @@ extension GameController: UITableViewDelegate {
 //MARK: Collection views delegate and data source
 extension GameController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionView == self.phoneCollectionView ? 2 : 1
+        return collectionView == self.backgroundCollectionView ? 1 : 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -148,11 +197,16 @@ extension GameController: UICollectionViewDelegate, UICollectionViewDataSource {
                 cell.backgroundColor = UIColor.white
                 return cell
             }
-            
-        } else {
+        } else if collectionView == self.backgroundCollectionView{
             //Background view
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: backgroundCellId, for: indexPath) as! BackgroundCell
             cell.delegate = self
+            return cell
+        } else {
+            //Notification view
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: notificationCellId, for: indexPath)
+            cell.isUserInteractionEnabled = false
+            cell.backgroundColor = indexPath.item == 0 ? .white : .clear
             return cell
         }
     }
@@ -160,9 +214,11 @@ extension GameController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == self.phoneCollectionView {
             return CGSize(width: phoneCollectionView.frame.width, height: phoneCollectionView.frame.height)
-        } else {
+        } else if collectionView == self.backgroundCollectionView {
             let multiplier = 1281/backgroundCollectionView.frame.width
             return CGSize(width: backgroundCollectionView.frame.width*multiplier, height: backgroundCollectionView.frame.height)
+        } else {
+            return CGSize(width: notificationCollectionView.frame.width, height: notificationCollectionView.frame.height)
         }
     }
     
@@ -196,12 +252,10 @@ extension GameController: BackgroundCellDelegate {
 //MARK: Chat view delegate
 extension GameController: ChatViewDelegate {
     func sendPressed(message: String) {
-        print("send")
         //socketHelper.sendMessage(name: "Eugene", message: message, gameId: 123)
     }
     
     func chatBackPressed() {
-        print("hi")
         phoneCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
         phoneCollectionView.isScrollEnabled = false
     }
@@ -223,6 +277,13 @@ extension GameController {
                 self.view.frame.origin.y += keyboardSize.height
             }
         }
+    }
+}
+
+extension GameController {
+    @objc func swipedDown() {
+        view.bringSubview(toFront: notificationCollectionView)
+        notificationCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: true)
     }
 }
 

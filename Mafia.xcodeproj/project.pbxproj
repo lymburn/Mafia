@@ -29,6 +29,7 @@
 		26DF850420AFBD8D0058F003 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26DF850220AFBD8D0058F003 /* Main.storyboard */; };
 		26DF850620AFBD8F0058F003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26DF850520AFBD8F0058F003 /* Assets.xcassets */; };
 		26DF850920AFBD8F0058F003 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26DF850720AFBD8F0058F003 /* LaunchScreen.storyboard */; };
+		26E1803720D35DA300740951 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E1803620D35DA300740951 /* NotificationView.swift */; };
 		26F7EB4520D1AACC00172616 /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F7EB4420D1AACC00172616 /* StatusBar.swift */; };
 		26F7EB4720D1B4BF00172616 /* PlayerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F7EB4620D1B4BF00172616 /* PlayerListView.swift */; };
 		26F7EB4B20D1B7CF00172616 /* PlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F7EB4A20D1B7CF00172616 /* PlayerCell.swift */; };
@@ -61,6 +62,7 @@
 		26DF850520AFBD8F0058F003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		26DF850820AFBD8F0058F003 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		26DF850A20AFBD8F0058F003 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		26E1803620D35DA300740951 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		26F7EB4420D1AACC00172616 /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
 		26F7EB4620D1B4BF00172616 /* PlayerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListView.swift; sourceTree = "<group>"; };
 		26F7EB4A20D1B7CF00172616 /* PlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCell.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				26F7EB4620D1B4BF00172616 /* PlayerListView.swift */,
 				26F7EB4A20D1B7CF00172616 /* PlayerCell.swift */,
 				2698B2F820D30739000F9391 /* ChatHeaderBar.swift */,
+				26E1803620D35DA300740951 /* NotificationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				26F7EB4520D1AACC00172616 /* StatusBar.swift in Sources */,
 				26F7EB4B20D1B7CF00172616 /* PlayerCell.swift in Sources */,
 				26DF850120AFBD8D0058F003 /* HomeController.swift in Sources */,
+				26E1803720D35DA300740951 /* NotificationView.swift in Sources */,
 				262628BE20CA3C1000EE9F0D /* CreateController.swift in Sources */,
 				2661D5C420CA0877003A6A02 /* JoinController.swift in Sources */,
 				2630DBFB20CDE3D300C81101 /* Message.swift in Sources */,
