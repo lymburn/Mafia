@@ -109,6 +109,7 @@ extension GameController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ChatMessageCell
         cell.backgroundColor = .clear
+        cell.selectionStyle = .none
         //cell.messageTextView.text = messages[indexPath.row].content
         //cell.name.text = messages[indexPath.row].sender
         return cell
@@ -134,13 +135,16 @@ extension GameController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.phoneCollectionView {
             if indexPath.item == 0 {
+                //Player list view
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: playerListViewId, for: indexPath) as! PlayerListView
                 cell.playerTable.delegate = self
                 return cell
             } else {
+                //Chat log view
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatCellId, for: indexPath) as! ChatView
                 cell.chatBox.dataSource = self
                 cell.chatBox.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
+                cell.delegate = self
                 cell.backgroundColor = UIColor.white
                 return cell
             }
@@ -161,8 +165,16 @@ extension GameController: UICollectionViewDelegate, UICollectionViewDataSource {
             return CGSize(width: backgroundCollectionView.frame.width*multiplier, height: backgroundCollectionView.frame.height)
         }
     }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        //Disable phone scrolling if the current view is the player list
+        let indexPaths = phoneCollectionView.indexPathsForVisibleItems
+        let currentIndexPath = indexPaths[0]
+        phoneCollectionView.isScrollEnabled = currentIndexPath.item == 0 ? false : true
+    }
 }
 
+//MARK: Socket delegate
 extension GameController: SocketHelperDelegate {
     func messageReceived() {
         let message = socketHelper.getMessage()
@@ -181,9 +193,17 @@ extension GameController: BackgroundCellDelegate {
     }
 }
 
+//MARK: Chat view delegate
 extension GameController: ChatViewDelegate {
     func sendPressed(message: String) {
+        print("send")
         //socketHelper.sendMessage(name: "Eugene", message: message, gameId: 123)
+    }
+    
+    func chatBackPressed() {
+        print("hi")
+        phoneCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+        phoneCollectionView.isScrollEnabled = false
     }
 }
 

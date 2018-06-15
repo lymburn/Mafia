@@ -10,11 +10,17 @@ import Foundation
 
 import UIKit
 
+protocol ChatHeaderBarDelegate: class {
+    func backPressed()
+}
+
 class ChatHeaderBar: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
+    
+    weak var delegate: ChatHeaderBarDelegate? = nil
     
     let name: UILabel = {
         let label = UILabel()
@@ -31,6 +37,7 @@ class ChatHeaderBar: UIView {
         bt.translatesAutoresizingMaskIntoConstraints = false
         bt.setTitle("←", for: .normal)
         bt.setTitleColor(UIColor.rgb(51, 51, 51, 1), for: .normal)
+        bt.addTarget(self, action: #selector(backPressed), for: .touchDown)
         return bt
     }()
     
@@ -55,5 +62,11 @@ class ChatHeaderBar: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension ChatHeaderBar {
+    @objc func backPressed() {
+        delegate?.backPressed()
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 
 protocol ChatViewDelegate: class {
     func sendPressed(message: String)
+    func chatBackPressed()
 }
 
 class ChatView: UICollectionViewCell {
@@ -21,6 +22,7 @@ class ChatView: UICollectionViewCell {
         chatBox.estimatedRowHeight = 100
         chatBox.rowHeight = UITableViewAutomaticDimension
         
+        chatHeader.delegate = self
         keyboardView.delegate = self
     }
     
@@ -68,6 +70,8 @@ class ChatView: UICollectionViewCell {
         textView.backgroundColor = UIColor(rgb: 0xdcdde1)
         textView.isScrollEnabled = false
         textView.returnKeyType = UIReturnKeyType.send
+        textView.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 5, right: 8)
+
         return textView
     }()
     
@@ -89,7 +93,7 @@ class ChatView: UICollectionViewCell {
         chatBox.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         chatBox.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
         chatBox.topAnchor.constraint(equalTo: chatHeader.bottomAnchor).isActive = true
-        chatBox.bottomAnchor.constraint(equalTo: keyboardView.topAnchor, constant: -32).isActive = true
+        chatBox.bottomAnchor.constraint(equalTo: keyboardView.topAnchor, constant: -8).isActive = true
         
         keyboardView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         keyboardView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
@@ -163,5 +167,11 @@ extension ChatView: UITextViewDelegate {
             return false
         }
         return true
+    }
+}
+
+extension ChatView: ChatHeaderBarDelegate {
+    func backPressed() {
+        delegate?.chatBackPressed()
     }
 }
