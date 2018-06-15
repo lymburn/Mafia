@@ -70,15 +70,6 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         return sb
     }()
     
-    let notificationView: NotificationView = {
-        let nv = NotificationView()
-        nv.translatesAutoresizingMaskIntoConstraints = false
-        nv.backgroundColor = .white
-        nv.layer.cornerRadius = 15
-        nv.alpha = 0
-        return nv
-    }()
-    
     let notificationCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -104,14 +95,13 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
     
     fileprivate func addSwipeDownGesture() {
         //Swipe down gesture for status bar
-        let tap = UILongPressGestureRecognizer(target: self, action: #selector(swipedDown))
-        tap.minimumPressDuration = 0
-        statusBar.addGestureRecognizer(tap)
+        //let tap = UILongPressGestureRecognizer(target: self, action: #selector(swipedDown))
+        //tap.minimumPressDuration = 0
+        //statusBar.addGestureRecognizer(tap)
     }
     
     fileprivate func setupViews() {
         view.addSubview(notificationCollectionView)
-        view.addSubview(notificationView)
         view.addSubview(backgroundCollectionView)
         view.addSubview(phoneCollectionView)
         view.addSubview(statusBar)
@@ -141,11 +131,6 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         statusBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.05).isActive = true
         statusBar.heightAnchor.constraint(equalToConstant: 30).isActive = true
         statusBar.topAnchor.constraint(equalTo: view.topAnchor, constant: screenSize.height).isActive = true
-        
-        notificationView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.05).isActive = true
-        notificationView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.05).isActive = true
-        //notificationView.heightAnchor.constraint(equalToConstant: screenSize.height*0.9).isActive = true
-        notificationView.topAnchor.constraint(equalTo: view.topAnchor, constant: screenSize.height*0.05).isActive = true
     }
 }
 
@@ -171,7 +156,7 @@ extension GameController: UITableViewDelegate {
         //Scroll to chat view
         phoneCollectionView.isScrollEnabled = true
         phoneCollectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .right, animated: true)
-        tableView.deselectRow(at: indexPath, animated: true)
+        //tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -187,12 +172,12 @@ extension GameController: UICollectionViewDelegate, UICollectionViewDataSource {
                 //Player list view
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: playerListViewId, for: indexPath) as! PlayerListView
                 cell.playerTable.delegate = self
+                cell.backgroundColor = .white
                 return cell
             } else {
                 //Chat log view
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatCellId, for: indexPath) as! ChatView
                 cell.chatBox.dataSource = self
-                cell.chatBox.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
                 cell.delegate = self
                 cell.backgroundColor = UIColor.white
                 return cell
@@ -222,6 +207,10 @@ extension GameController: UICollectionViewDelegate, UICollectionViewDataSource {
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         //Disable phone scrolling if the current view is the player list
         let indexPaths = phoneCollectionView.indexPathsForVisibleItems
@@ -246,6 +235,8 @@ extension GameController: BackgroundCellDelegate {
             self.phoneCollectionView.transform = CGAffineTransform(translationX: 0, y: -self.screenSize.height*0.95)
             self.statusBar.transform = CGAffineTransform(translationX: 0, y: -self.screenSize.height*0.95)
         }
+        backgroundCollectionView.allowsSelection = false
+        backgroundCollectionView.isUserInteractionEnabled = false
     }
 }
 

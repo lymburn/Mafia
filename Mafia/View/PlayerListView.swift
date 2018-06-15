@@ -35,9 +35,9 @@ class PlayerListView: UICollectionViewCell {
     let playerTable: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.separatorColor = .clear
+        tv.separatorColor = .black
         tv.tableFooterView = UIView()
-        tv.backgroundColor = .clear
+        tv.backgroundColor = .white
         return tv
     }()
     
@@ -49,7 +49,7 @@ class PlayerListView: UICollectionViewCell {
     
     override func updateConstraints() {
         super.updateConstraints()
-        
+
         header.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         header.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         header.topAnchor.constraint(equalTo: topAnchor, constant: 38).isActive = true
@@ -63,9 +63,5 @@ class PlayerListView: UICollectionViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
     }
 }
