@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		260CEE6220D1D70F00017440 /* PlayerTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260CEE6120D1D70F00017440 /* PlayerTableDataSource.swift */; };
+		260CEE6220D1D70F00017440 /* PlayerTableDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260CEE6120D1D70F00017440 /* PlayerTableDataController.swift */; };
 		262628BE20CA3C1000EE9F0D /* CreateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262628BD20CA3C1000EE9F0D /* CreateController.swift */; };
 		262628C020CA3E2900EE9F0D /* LobbyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262628BF20CA3E2900EE9F0D /* LobbyController.swift */; };
 		2630DBF920CDE02200C81101 /* SocketHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2630DBF820CDE02200C81101 /* SocketHelper.swift */; };
@@ -22,6 +22,10 @@
 		268E18AB20C9DFF8003190BD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18AA20C9DFF8003190BD /* HomeView.swift */; };
 		268E18AD20C9E023003190BD /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18AC20C9E022003190BD /* BaseView.swift */; };
 		2698B2F920D30739000F9391 /* ChatHeaderBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2698B2F820D30739000F9391 /* ChatHeaderBar.swift */; };
+		26A2B1C820D59D6800254A12 /* PhoneDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A2B1C720D59D6800254A12 /* PhoneDataController.swift */; };
+		26A2B1CA20D5A1F500254A12 /* BackgroundDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A2B1C920D5A1F500254A12 /* BackgroundDataController.swift */; };
+		26A2B1CC20D5A78300254A12 /* ChatBoxDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A2B1CB20D5A78300254A12 /* ChatBoxDataController.swift */; };
+		26A2B1CE20D5AA8600254A12 /* NotificationDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A2B1CD20D5AA8600254A12 /* NotificationDataController.swift */; };
 		26A5F24120CF324F005E2280 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A5F24020CF324F005E2280 /* ChatView.swift */; };
 		26A5F24320D0637C005E2280 /* BackgroundCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A5F24220D0637C005E2280 /* BackgroundCell.swift */; };
 		26DF84FF20AFBD8D0058F003 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DF84FE20AFBD8D0058F003 /* AppDelegate.swift */; };
@@ -38,7 +42,7 @@
 
 /* Begin PBXFileReference section */
 		20BBEEC094D59464D554E27D /* Pods-Mafia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mafia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mafia/Pods-Mafia.release.xcconfig"; sourceTree = "<group>"; };
-		260CEE6120D1D70F00017440 /* PlayerTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableDataSource.swift; sourceTree = "<group>"; };
+		260CEE6120D1D70F00017440 /* PlayerTableDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableDataController.swift; sourceTree = "<group>"; };
 		262628BD20CA3C1000EE9F0D /* CreateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateController.swift; sourceTree = "<group>"; };
 		262628BF20CA3E2900EE9F0D /* LobbyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyController.swift; sourceTree = "<group>"; };
 		2630DBF820CDE02200C81101 /* SocketHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketHelper.swift; sourceTree = "<group>"; };
@@ -53,6 +57,10 @@
 		268E18AA20C9DFF8003190BD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		268E18AC20C9E022003190BD /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		2698B2F820D30739000F9391 /* ChatHeaderBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderBar.swift; sourceTree = "<group>"; };
+		26A2B1C720D59D6800254A12 /* PhoneDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDataController.swift; sourceTree = "<group>"; };
+		26A2B1C920D5A1F500254A12 /* BackgroundDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundDataController.swift; sourceTree = "<group>"; };
+		26A2B1CB20D5A78300254A12 /* ChatBoxDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBoxDataController.swift; sourceTree = "<group>"; };
+		26A2B1CD20D5AA8600254A12 /* NotificationDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDataController.swift; sourceTree = "<group>"; };
 		26A5F24020CF324F005E2280 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		26A5F24220D0637C005E2280 /* BackgroundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCell.swift; sourceTree = "<group>"; };
 		26DF84FB20AFBD8D0058F003 /* Mafia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mafia.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,6 +141,11 @@
 				262628BD20CA3C1000EE9F0D /* CreateController.swift */,
 				262628BF20CA3E2900EE9F0D /* LobbyController.swift */,
 				2667CED320CC56240048536C /* GameController.swift */,
+				26A2B1C720D59D6800254A12 /* PhoneDataController.swift */,
+				260CEE6120D1D70F00017440 /* PlayerTableDataController.swift */,
+				26A2B1CB20D5A78300254A12 /* ChatBoxDataController.swift */,
+				26A2B1C920D5A1F500254A12 /* BackgroundDataController.swift */,
+				26A2B1CD20D5AA8600254A12 /* NotificationDataController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -142,7 +155,6 @@
 			children = (
 				2630DBF820CDE02200C81101 /* SocketHelper.swift */,
 				2630DBFA20CDE3D300C81101 /* Message.swift */,
-				260CEE6120D1D70F00017440 /* PlayerTableDataSource.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -307,20 +319,24 @@
 				262628BE20CA3C1000EE9F0D /* CreateController.swift in Sources */,
 				2661D5C420CA0877003A6A02 /* JoinController.swift in Sources */,
 				2630DBFB20CDE3D300C81101 /* Message.swift in Sources */,
+				26A2B1CA20D5A1F500254A12 /* BackgroundDataController.swift in Sources */,
 				26A5F24120CF324F005E2280 /* ChatView.swift in Sources */,
 				26F7EB4720D1B4BF00172616 /* PlayerListView.swift in Sources */,
+				26A2B1C820D59D6800254A12 /* PhoneDataController.swift in Sources */,
+				26A2B1CC20D5A78300254A12 /* ChatBoxDataController.swift in Sources */,
 				2661D5C620CA1577003A6A02 /* HomeViewButton.swift in Sources */,
 				2630DBF920CDE02200C81101 /* SocketHelper.swift in Sources */,
 				2662277820CC7B2300217901 /* ChatMessageCell.swift in Sources */,
 				2667CED220CC4C2F0048536C /* LobbyCell.swift in Sources */,
 				262628C020CA3E2900EE9F0D /* LobbyController.swift in Sources */,
-				260CEE6220D1D70F00017440 /* PlayerTableDataSource.swift in Sources */,
+				260CEE6220D1D70F00017440 /* PlayerTableDataController.swift in Sources */,
 				268E18A720C9D758003190BD /* Extensions.swift in Sources */,
 				268E18AD20C9E023003190BD /* BaseView.swift in Sources */,
 				2667CED420CC56240048536C /* GameController.swift in Sources */,
 				268E18AB20C9DFF8003190BD /* HomeView.swift in Sources */,
 				26DF84FF20AFBD8D0058F003 /* AppDelegate.swift in Sources */,
 				26A5F24320D0637C005E2280 /* BackgroundCell.swift in Sources */,
+				26A2B1CE20D5AA8600254A12 /* NotificationDataController.swift in Sources */,
 				2698B2F920D30739000F9391 /* ChatHeaderBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

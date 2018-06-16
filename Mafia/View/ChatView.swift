@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ChatViewDelegate: class {
-    func sendPressed(message: String)
+    func sendPressed(withMessage message: String)
     func chatBackPressed()
 }
 
@@ -155,7 +155,7 @@ extension ChatView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         //If send key is pressed
         if(text == "\n") {
-            delegate?.sendPressed(message: textView.text)
+            delegate?.sendPressed(withMessage: textView.text)
             textView.text = nil
             //Reset text view height
             textView.constraints.forEach { (constraint) in

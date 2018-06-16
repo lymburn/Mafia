@@ -8,9 +8,10 @@
 
 import UIKit
 
-class NotificationView: UIView {
+class NotificationView: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .black
         setupViews()
     }
     
@@ -20,7 +21,7 @@ class NotificationView: UIView {
         label.font = UIFont(name: "Helvetica", size: 22)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.rgb(51, 51, 51, 1)
+        label.textColor = .white
         return label
     }()
     
@@ -46,8 +47,8 @@ class NotificationView: UIView {
         
         header.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         header.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        header.topAnchor.constraint(equalTo: topAnchor, constant: 30).isActive = true
-        header.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        header.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
+        header.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         newsTable.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         newsTable.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true

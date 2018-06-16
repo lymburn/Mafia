@@ -14,11 +14,7 @@ class PlayerListView: UICollectionViewCell {
         setupViews()
         playerTable.register(PlayerCell.self, forCellReuseIdentifier: cellId)
         playerTable.rowHeight = 100
-        
-        playerTable.dataSource = dataSource
     }
-    
-    let dataSource = PlayerTableDataSource()
     let cellId = "cellId"
     
     let header: UILabel = {
@@ -35,7 +31,7 @@ class PlayerListView: UICollectionViewCell {
     let playerTable: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.separatorColor = .black
+        tv.separatorColor = .clear
         tv.tableFooterView = UIView()
         tv.backgroundColor = .white
         return tv
