@@ -13,12 +13,18 @@ class NotificationView: UICollectionViewCell {
         super.init(frame: frame)
         backgroundColor = .black
         setupViews()
+        
+        newsTable.register(NotificationCell.self, forCellReuseIdentifier: cellId)
+        newsTable.estimatedRowHeight = 100
+        newsTable.rowHeight = UITableViewAutomaticDimension
     }
+    
+    let cellId = "cellId"
     
     let header: UILabel = {
         let label = UILabel()
         label.text = "Notifications"
-        label.font = UIFont(name: "Helvetica", size: 22)
+        label.font = UIFont(name: "Helvetica", size: 26)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
@@ -47,7 +53,7 @@ class NotificationView: UICollectionViewCell {
         
         header.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         header.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        header.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
+        header.topAnchor.constraint(equalTo: topAnchor, constant: 30).isActive = true
         header.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         newsTable.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true

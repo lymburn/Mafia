@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol BackgroundCellDelegate: class {
+protocol BackgroundViewDelegate: class {
     func swipedUp()
 }
 
-class BackgroundCell: UICollectionViewCell {
+class BackgroundView: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -22,7 +22,7 @@ class BackgroundCell: UICollectionViewCell {
         backgroundImage.addGestureRecognizer(swipeUp)
     }
     
-    weak var delegate: BackgroundCellDelegate? = nil
+    weak var delegate: BackgroundViewDelegate? = nil
     
     @objc func swipedUp() {
         delegate?.swipedUp()

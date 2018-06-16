@@ -26,8 +26,10 @@
 		26A2B1CA20D5A1F500254A12 /* BackgroundDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A2B1C920D5A1F500254A12 /* BackgroundDataController.swift */; };
 		26A2B1CC20D5A78300254A12 /* ChatBoxDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A2B1CB20D5A78300254A12 /* ChatBoxDataController.swift */; };
 		26A2B1CE20D5AA8600254A12 /* NotificationDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A2B1CD20D5AA8600254A12 /* NotificationDataController.swift */; };
+		26A2B1D020D5B37200254A12 /* NewsTableDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A2B1CF20D5B37200254A12 /* NewsTableDataController.swift */; };
+		26A2B1D220D5B40400254A12 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A2B1D120D5B40400254A12 /* NotificationCell.swift */; };
 		26A5F24120CF324F005E2280 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A5F24020CF324F005E2280 /* ChatView.swift */; };
-		26A5F24320D0637C005E2280 /* BackgroundCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A5F24220D0637C005E2280 /* BackgroundCell.swift */; };
+		26A5F24320D0637C005E2280 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A5F24220D0637C005E2280 /* BackgroundView.swift */; };
 		26DF84FF20AFBD8D0058F003 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DF84FE20AFBD8D0058F003 /* AppDelegate.swift */; };
 		26DF850120AFBD8D0058F003 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DF850020AFBD8D0058F003 /* HomeController.swift */; };
 		26DF850420AFBD8D0058F003 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26DF850220AFBD8D0058F003 /* Main.storyboard */; };
@@ -61,8 +63,10 @@
 		26A2B1C920D5A1F500254A12 /* BackgroundDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundDataController.swift; sourceTree = "<group>"; };
 		26A2B1CB20D5A78300254A12 /* ChatBoxDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBoxDataController.swift; sourceTree = "<group>"; };
 		26A2B1CD20D5AA8600254A12 /* NotificationDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDataController.swift; sourceTree = "<group>"; };
+		26A2B1CF20D5B37200254A12 /* NewsTableDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableDataController.swift; sourceTree = "<group>"; };
+		26A2B1D120D5B40400254A12 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		26A5F24020CF324F005E2280 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
-		26A5F24220D0637C005E2280 /* BackgroundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCell.swift; sourceTree = "<group>"; };
+		26A5F24220D0637C005E2280 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		26DF84FB20AFBD8D0058F003 /* Mafia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mafia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26DF84FE20AFBD8D0058F003 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		26DF850020AFBD8D0058F003 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 				26A2B1CB20D5A78300254A12 /* ChatBoxDataController.swift */,
 				26A2B1C920D5A1F500254A12 /* BackgroundDataController.swift */,
 				26A2B1CD20D5AA8600254A12 /* NotificationDataController.swift */,
+				26A2B1CF20D5B37200254A12 /* NewsTableDataController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -168,12 +173,13 @@
 				2667CED120CC4C2F0048536C /* LobbyCell.swift */,
 				2662277720CC7B2300217901 /* ChatMessageCell.swift */,
 				26A5F24020CF324F005E2280 /* ChatView.swift */,
-				26A5F24220D0637C005E2280 /* BackgroundCell.swift */,
+				26A5F24220D0637C005E2280 /* BackgroundView.swift */,
 				26F7EB4420D1AACC00172616 /* StatusBar.swift */,
 				26F7EB4620D1B4BF00172616 /* PlayerListView.swift */,
 				26F7EB4A20D1B7CF00172616 /* PlayerCell.swift */,
 				2698B2F820D30739000F9391 /* ChatHeaderBar.swift */,
 				26E1803620D35DA300740951 /* NotificationView.swift */,
+				26A2B1D120D5B40400254A12 /* NotificationCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -319,6 +325,7 @@
 				262628BE20CA3C1000EE9F0D /* CreateController.swift in Sources */,
 				2661D5C420CA0877003A6A02 /* JoinController.swift in Sources */,
 				2630DBFB20CDE3D300C81101 /* Message.swift in Sources */,
+				26A2B1D020D5B37200254A12 /* NewsTableDataController.swift in Sources */,
 				26A2B1CA20D5A1F500254A12 /* BackgroundDataController.swift in Sources */,
 				26A5F24120CF324F005E2280 /* ChatView.swift in Sources */,
 				26F7EB4720D1B4BF00172616 /* PlayerListView.swift in Sources */,
@@ -331,11 +338,12 @@
 				262628C020CA3E2900EE9F0D /* LobbyController.swift in Sources */,
 				260CEE6220D1D70F00017440 /* PlayerTableDataController.swift in Sources */,
 				268E18A720C9D758003190BD /* Extensions.swift in Sources */,
+				26A2B1D220D5B40400254A12 /* NotificationCell.swift in Sources */,
 				268E18AD20C9E023003190BD /* BaseView.swift in Sources */,
 				2667CED420CC56240048536C /* GameController.swift in Sources */,
 				268E18AB20C9DFF8003190BD /* HomeView.swift in Sources */,
 				26DF84FF20AFBD8D0058F003 /* AppDelegate.swift in Sources */,
-				26A5F24320D0637C005E2280 /* BackgroundCell.swift in Sources */,
+				26A5F24320D0637C005E2280 /* BackgroundView.swift in Sources */,
 				26A2B1CE20D5AA8600254A12 /* NotificationDataController.swift in Sources */,
 				2698B2F920D30739000F9391 /* ChatHeaderBar.swift in Sources */,
 			);

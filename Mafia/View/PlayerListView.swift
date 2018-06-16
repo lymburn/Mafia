@@ -15,6 +15,7 @@ class PlayerListView: UICollectionViewCell {
         playerTable.register(PlayerCell.self, forCellReuseIdentifier: cellId)
         playerTable.rowHeight = 100
     }
+    
     let cellId = "cellId"
     
     let header: UILabel = {

@@ -52,7 +52,7 @@ class ChatMessageCell: UITableViewCell {
     
     override func updateConstraints() {
         super.updateConstraints()
-        profilePic.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        profilePic.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         profilePic.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
         profilePic.widthAnchor.constraint(equalToConstant: 50).isActive = true
         profilePic.heightAnchor.constraint(equalToConstant: 50).isActive = true

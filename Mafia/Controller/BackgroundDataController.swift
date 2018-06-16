@@ -21,7 +21,7 @@ class BackgroundDataController: NSObject, UICollectionViewDataSource, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: backgroundCellId, for: indexPath) as! BackgroundCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: backgroundCellId, for: indexPath) as! BackgroundView
         cell.delegate = self
         return cell
     }
@@ -36,7 +36,7 @@ class BackgroundDataController: NSObject, UICollectionViewDataSource, UICollecti
     }
 }
 
-extension BackgroundDataController: BackgroundCellDelegate {
+extension BackgroundDataController: BackgroundViewDelegate {
     func swipedUp() {
         delegate?.swipedUp()
     }

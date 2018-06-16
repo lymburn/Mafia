@@ -9,7 +9,7 @@
 import UIKit
 import SocketIO
 
-class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
+class GameController: UIViewController{
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +74,7 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
         let col = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        col.backgroundColor = UIColor.clear
+        col.backgroundColor = .clear
         col.translatesAutoresizingMaskIntoConstraints = false
         col.showsVerticalScrollIndicator = false
         col.layer.cornerRadius = 15
@@ -101,7 +101,7 @@ class GameController: UIViewController, UICollectionViewDelegateFlowLayout {
         col.translatesAutoresizingMaskIntoConstraints = false
         col.showsHorizontalScrollIndicator = false
         
-        col.register(BackgroundCell.self, forCellWithReuseIdentifier: backgroundCellId)
+        col.register(BackgroundView.self, forCellWithReuseIdentifier: backgroundCellId)
         col.delegate = self.backgroundDataController
         col.dataSource = self.backgroundDataController
         return col

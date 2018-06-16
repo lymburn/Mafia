@@ -13,6 +13,8 @@ class NotificationDataController: NSObject, UICollectionViewDataSource, UICollec
     let notificationCellId = "notificationCellId"
     let clearNotificationCellId = "clearNotificationCellId"
     
+    let newsTableDataController = NewsTableDataController()
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 2
     }
@@ -20,7 +22,9 @@ class NotificationDataController: NSObject, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.item == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: notificationCellId, for: indexPath) as! NotificationView
-            cell.backgroundColor = .white
+            cell.backgroundColor = .black
+            cell.newsTable.delegate = newsTableDataController
+            cell.newsTable.dataSource = newsTableDataController
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: clearNotificationCellId, for: indexPath)
