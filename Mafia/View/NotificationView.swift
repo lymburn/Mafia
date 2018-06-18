@@ -21,6 +21,12 @@ class NotificationView: UICollectionViewCell {
     
     let cellId = "cellId"
     
+    let statusBar: StatusBar = {
+        let sb = StatusBar()
+        sb.translatesAutoresizingMaskIntoConstraints = false
+        return sb
+    }()
+    
     let header: UILabel = {
         let label = UILabel()
         label.text = "Notifications"
@@ -45,21 +51,27 @@ class NotificationView: UICollectionViewCell {
     fileprivate func setupViews() {
         addSubview(newsTable)
         addSubview(header)
+        addSubview(statusBar)
         updateConstraints()
     }
     
     override func updateConstraints() {
         super.updateConstraints()
         
+        statusBar.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        statusBar.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        statusBar.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        statusBar.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
         header.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         header.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        header.topAnchor.constraint(equalTo: topAnchor, constant: 30).isActive = true
+        header.topAnchor.constraint(equalTo: statusBar.bottomAnchor, constant: 8).isActive = true
         header.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         newsTable.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         newsTable.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         newsTable.topAnchor.constraint(equalTo: header.bottomAnchor).isActive = true
-        newsTable.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        newsTable.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

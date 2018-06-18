@@ -91,6 +91,7 @@ class GameController: UIViewController{
     
     lazy var notificationDataController: NotificationDataController = {
         let notificationDataController = NotificationDataController()
+        notificationDataController.delegate = self
         return notificationDataController
     }()
     
@@ -137,18 +138,14 @@ class GameController: UIViewController{
         backgroundCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         phoneCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.05 - 1).isActive = true
-        phoneCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.05 - 1).identifier = "phone lead"
         phoneCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.05).isActive = true
-        phoneCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.05).identifier = "ph trail"
         phoneCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: screenSize.height).isActive = true
-        phoneCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: screenSize.height).identifier = "ph top"
         phoneCollectionView.heightAnchor.constraint(equalToConstant: screenSize.height*0.9).isActive = true
-        phoneCollectionView.heightAnchor.constraint(equalToConstant: screenSize.height*0.9).identifier = "ph height"
         
         notificationCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.05 - 1).isActive = true
         notificationCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.05).isActive = true
         notificationCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: screenSize.height*0.05).isActive = true
-        notificationCollectionView.heightAnchor.constraint(equalToConstant: screenSize.height*0.9).isActive = true
+        notificationCollectionView.heightAnchor.constraint(equalToConstant: screenSize.height*0.9 + 1).isActive = true
         
         statusBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.05 - 1).isActive = true
         statusBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.05).isActive = true
@@ -196,6 +193,19 @@ extension GameController: PhoneDataControllerDelegate {
     func didSelectRowAt(indexPath: IndexPath) {
         phoneCollectionView.isScrollEnabled = true
         phoneCollectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .right, animated: true)
+    }
+}
+
+//MARK: Notiification data controller delegate methods
+extension GameController: NotificationDataControllerDelegate {
+    func didScroll(scrollView: UIScrollView) {
+        //Determine whether notification view is active
+        let center = CGPoint(x: (scrollView.frame.width/2) , y: scrollView.contentOffset.y + (scrollView.frame.height / 2))
+        if let indexPath = notificationCollectionView.indexPathForItem(at: center) {
+            if indexPath.row == 1 {
+                notificationCollectionView.alpha = 0
+            }
+        }
     }
 }
 

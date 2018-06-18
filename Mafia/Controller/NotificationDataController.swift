@@ -8,12 +8,17 @@
 
 import UIKit
 
+protocol NotificationDataControllerDelegate: class {
+    func didScroll(scrollView: UIScrollView)
+}
+
 class NotificationDataController: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     let screenSize = UIScreen.main.bounds
     let notificationCellId = "notificationCellId"
     let clearNotificationCellId = "clearNotificationCellId"
     
     let newsTableDataController = NewsTableDataController()
+    weak var delegate: NotificationDataControllerDelegate? = nil
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 2
@@ -39,5 +44,9 @@ class NotificationDataController: NSObject, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return false
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        delegate?.didScroll(scrollView: scrollView)
     }
 }
