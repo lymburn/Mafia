@@ -8,15 +8,22 @@
 
 import UIKit
 
-class PlayerCell: UITableViewCell {
+class PlayerCell: BaseTableCell<TableCellInfo> {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
     }
     
+    override var info: TableCellInfo! {
+        didSet {
+            name.text = info.name
+            profilePic.image = UIImage(named: info.imageName)
+            messageText.text = info.text
+        }
+    }
+    
     let name: UILabel = {
         let label = UILabel()
-        label.text = "Eugene"
         label.font = UIFont(name: "Helvetica", size: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.rgb(51, 51, 51, 1)
@@ -24,7 +31,7 @@ class PlayerCell: UITableViewCell {
     }()
     
     let profilePic: UIImageView = {
-        let iv = UIImageView(image: UIImage(named: "SendButton"))
+        let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -41,6 +48,7 @@ class PlayerCell: UITableViewCell {
     }()
     
     fileprivate func setupViews() {
+        backgroundColor = .white
         addSubview(profilePic)
         addSubview(name)
         addSubview(messageText)

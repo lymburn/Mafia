@@ -8,17 +8,24 @@
 
 import UIKit
 
-class ChatMessageCell: UITableViewCell {
+class ChatMessageCell: BaseTableCell<TableCellInfo> {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
-
     }
+    
+    override var info: TableCellInfo! {
+        didSet {
+            messageTextView.text = info.text
+            name.text = info.name
+            profilePic.image = UIImage(named: info.imageName)
+        }
+    }
+    
     
     let messageTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = "Lorem ipsum dolor sit amet, an epicuri forensibus mea, cum nibh insolens eu, eu repudiandae accommodare eum. Zril doctus ut cum. An mea sapientem voluptatum, mea ad nonumy putant. Eu quas adipiscing voluptatum ius, mei causae recteque et, ea delectus constituam scriptorem pri. Sea in atomorum adolescens, duo illum nostrud referrentur id, mea vero volutpat et."
         textView.font = UIFont(name: "Helvetica", size: 16)
         textView.textColor = UIColor.gray
         textView.isScrollEnabled = false
@@ -28,7 +35,6 @@ class ChatMessageCell: UITableViewCell {
     
     let name: UILabel = {
         let label = UILabel()
-        label.text = "Eugene"
         label.font = UIFont(name: "Helvetica", size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.rgb(51, 51, 51, 1)
@@ -36,7 +42,7 @@ class ChatMessageCell: UITableViewCell {
     }()
     
     let profilePic: UIImageView = {
-        let iv = UIImageView(image: UIImage(named: "Stock 1"))
+        let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -44,6 +50,7 @@ class ChatMessageCell: UITableViewCell {
     }()
     
     fileprivate func setupViews() {
+        backgroundColor = .white
         addSubview(messageTextView)
         addSubview(name)
         addSubview(profilePic)

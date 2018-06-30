@@ -8,10 +8,18 @@
 
 import UIKit
 
-class NotificationCell: UITableViewCell {
+class NotificationCell: BaseTableCell<TableCellInfo> {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
+    }
+    
+    override var info: TableCellInfo! {
+        didSet {
+            header.text = info.name
+            icon.image = UIImage(named: info.imageName)
+            newsDescription.text = info.text
+        }
     }
     
     let container: UIView = {
@@ -24,7 +32,6 @@ class NotificationCell: UITableViewCell {
     
     let header: UILabel = {
         let label = UILabel()
-        label.text = "CBC News"
         label.font = UIFont(name: "Helvetica", size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.black
@@ -32,7 +39,7 @@ class NotificationCell: UITableViewCell {
     }()
     
     let icon: UIImageView = {
-        let iv = UIImageView(image: UIImage(named: "Stock 1"))
+        let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +49,6 @@ class NotificationCell: UITableViewCell {
     let newsDescription: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = "Lorem ipsum dolor sit amet, an epicuri forensibus mea, cum nibh insolens eu, eu repudiandae accommodare eum. Zril doctus ut cum. An mea sapientem voluptatum, mea ad nonumy putant. Eu quas adipiscing voluptatum ius, mei causae recteque et, ea delectus constituam scriptorem pri. Sea in atomorum adolescens, duo illum nostrud referrentur id, mea vero volutpat et."
         textView.font = UIFont(name: "Helvetica", size: 14)
         textView.textColor = UIColor.black
         textView.isScrollEnabled = false
@@ -52,6 +58,7 @@ class NotificationCell: UITableViewCell {
     }()
     
     fileprivate func setupViews() {
+        backgroundColor = .black
         addSubview(container)
         addSubview(header)
         addSubview(icon)
