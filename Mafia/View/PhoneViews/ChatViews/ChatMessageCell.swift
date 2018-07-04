@@ -18,7 +18,7 @@ class ChatMessageCell: BaseTableCell<TableCellInfo> {
         didSet {
             messageTextView.text = info.text
             name.text = info.name
-            profilePic.image = UIImage(named: info.imageName)
+            profilePic.image = UIImage(named: info.imageName!)
         }
     }
     

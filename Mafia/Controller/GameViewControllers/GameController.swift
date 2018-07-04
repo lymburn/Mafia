@@ -114,6 +114,20 @@ class GameController: UIViewController{
         return backgroundDataController
     }()
     
+    lazy var targetsDataController: TargetsDataController = {
+        let targetsDataController = TargetsDataController()
+        return targetsDataController
+    }()
+    
+    lazy var targetListView: TargetListView = {
+        let view = TargetListView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.targetListTable.dataSource = self.targetsDataController
+        view.targetListTable.delegate = self.targetsDataController
+        return view
+    }()
+    
     let targetActionButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -132,6 +146,7 @@ class GameController: UIViewController{
     fileprivate func setupViews() {
         view.addSubview(backgroundCollectionView)
         view.addSubview(targetActionButton)
+        view.addSubview(targetListView)
         view.addSubview(phoneCollectionView)
         view.addSubview(statusBar)
         view.addSubview(notificationCollectionView)
@@ -150,6 +165,11 @@ class GameController: UIViewController{
         targetActionButton.topAnchor.constraint(equalTo: view.topAnchor, constant: screenSize.height*0.2).isActive = true
         targetActionButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         targetActionButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        targetListView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.05 - 1).isActive = true
+        targetListView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.05).isActive = true
+        targetListView.topAnchor.constraint(equalTo: view.topAnchor, constant: screenSize.height).isActive = true
+        targetListView.heightAnchor.constraint(equalToConstant: screenSize.height*0.9).isActive = true
         
         phoneCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.05 - 1).isActive = true
         phoneCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.05).isActive = true
@@ -252,7 +272,10 @@ extension GameController {
     
     //Target action pressed
     @objc func targetPressed() {
-        
+        //Slide in target list from bottom
+        UIView.animate(withDuration: 0.5) {
+            self.targetListView.transform = CGAffineTransform(translationX: 0, y: -self.screenSize.height*0.95)
+        }
     }
 }
 
