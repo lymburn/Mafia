@@ -29,7 +29,7 @@ class PhoneDataController: NSObject, UICollectionViewDataSource, UICollectionVie
     
     let chatBoxDataController = ChatBoxDataController()
     
-    var delegate: PhoneDataControllerDelegate? = nil
+    weak var delegate: PhoneDataControllerDelegate? = nil
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 2

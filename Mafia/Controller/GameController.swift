@@ -114,6 +114,14 @@ class GameController: UIViewController{
         return backgroundDataController
     }()
     
+    let targetActionButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "Target"), for: .normal)
+        button.addTarget(self, action: #selector(targetPressed), for: .touchDown)
+        return button
+    }()
+    
     fileprivate func addSwipeDownGesture() {
         //Swipe down gesture for status bar
         let tap = UILongPressGestureRecognizer(target: self, action: #selector(swipedDown))
@@ -123,6 +131,7 @@ class GameController: UIViewController{
     
     fileprivate func setupViews() {
         view.addSubview(backgroundCollectionView)
+        view.addSubview(targetActionButton)
         view.addSubview(phoneCollectionView)
         view.addSubview(statusBar)
         view.addSubview(notificationCollectionView)
@@ -136,6 +145,11 @@ class GameController: UIViewController{
         backgroundCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         backgroundCollectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         backgroundCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        targetActionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.1).isActive = true
+        targetActionButton.topAnchor.constraint(equalTo: view.topAnchor, constant: screenSize.height*0.2).isActive = true
+        targetActionButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        targetActionButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         phoneCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.05 - 1).isActive = true
         phoneCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.05).isActive = true
@@ -228,10 +242,17 @@ extension GameController {
     }
 }
 
+//MARK: Touch events
 extension GameController {
+    //Status bar swipe down gesture
     @objc func swipedDown() {
         notificationCollectionView.alpha = 1
         notificationCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+    }
+    
+    //Target action pressed
+    @objc func targetPressed() {
+        
     }
 }
 

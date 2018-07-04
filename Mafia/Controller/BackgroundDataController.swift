@@ -14,7 +14,7 @@ protocol BackgroundDataControllerDelegate: class {
 
 class BackgroundDataController: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     let backgroundCellId = "backgroundCellId"
-    var delegate: BackgroundDataControllerDelegate? = nil
+    weak var delegate: BackgroundDataControllerDelegate? = nil
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
@@ -28,7 +28,7 @@ class BackgroundDataController: NSObject, UICollectionViewDataSource, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let backgroundWidth: CGFloat = 1281
-        return CGSize(width: backgroundWidth, height: UIScreen.main.bounds.height)
+        return CGSize(width: backgroundWidth, height: collectionView.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {

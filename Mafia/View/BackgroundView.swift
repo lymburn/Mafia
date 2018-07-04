@@ -29,7 +29,7 @@ class BackgroundView: UICollectionViewCell {
     }
 
     let backgroundImage: UIImageView = {
-        let iv = UIImageView(image: UIImage(named: "Day copy"))
+        let iv = UIImageView(image: UIImage(named: "Day"))
         iv.clipsToBounds = true
         iv.contentMode = .bottom
         iv.isUserInteractionEnabled = true
