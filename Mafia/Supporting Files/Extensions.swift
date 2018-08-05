@@ -57,3 +57,15 @@ extension UIView {
         self.layer.mask = mask
     }
 }
+
+extension UITextField {
+    func setBottomBorder(color: UIColor) {
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0, y: (self.font?.pointSize)! + 20, width: self.frame.width, height: 1.0)
+        bottomLine.backgroundColor = color.cgColor
+        
+        self.borderStyle = UITextBorderStyle.none
+        self.layer.addSublayer(bottomLine)
+        self.layer.masksToBounds = true
+    }
+}

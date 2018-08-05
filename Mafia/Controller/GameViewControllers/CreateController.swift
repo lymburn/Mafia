@@ -33,7 +33,7 @@ class CreateController: UIViewController {
 
 fileprivate extension CreateController {
     func setupViews() {
-        view.backgroundColor = UIColor(rgb: 0x181F42)
+        view.backgroundColor = UIColor(rgb: 0x85E4FE)
         view.addSubview(createButton)
         view.setNeedsUpdateConstraints()
     }

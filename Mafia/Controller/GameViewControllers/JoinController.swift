@@ -15,12 +15,15 @@ class JoinController: UIViewController {
         setupViews()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        textField.setBottomBorder(color: .white)
+    }
+    
     let textField: UITextField = {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.placeholder = "game id"
-        tf.layer.borderColor = UIColor.white.cgColor
-        tf.layer.borderWidth = 2
+        tf.placeholder = "Game ID"
         tf.textAlignment = .center
         tf.textColor = .white
         return tf
@@ -28,25 +31,33 @@ class JoinController: UIViewController {
     
     let joinButton: HomeViewButton = {
         let bt = HomeViewButton()
-        bt.setTitle("Create", for: .normal)
+        bt.setTitle("Join", for: .normal)
         bt.addTarget(self, action: #selector(joinPressed), for: .touchDown)
+        bt.setTitleColor(.white, for: .normal)
         return bt
     }()
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
-        textField.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        textField.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        let screenSize = UIScreen.main.bounds
+        
+        textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: screenSize.width*0.2).isActive = true
+        textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -screenSize.width*0.2).isActive = true
         textField.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         textField.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        joinButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8).isActive = true
+        joinButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8).isActive = true
+        joinButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 32).isActive = true
     }
     
 }
 
 fileprivate extension JoinController {
     func setupViews() {
-        view.backgroundColor = UIColor(rgb: 0x181F42)
+        view.backgroundColor = UIColor(rgb: 0x85E4FE)
         view.addSubview(textField)
+        view.addSubview(joinButton)
         view.setNeedsUpdateConstraints()
     }
 }
