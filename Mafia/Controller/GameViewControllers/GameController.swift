@@ -210,7 +210,7 @@ extension GameController: BackgroundDataControllerDelegate {
 //MARK: Phone collection view delegate methods
 extension GameController: PhoneDataControllerDelegate {
     func sendPressed(withMessage message: String) {
-        //socketHelper.sendMessage(name: "Eugene", message: message, gameId: 123)
+        socketHelper.sendMessage(name: "Eugene", message: message, gameId: "Plsbegq")
     }
     
     func chatBackPressed() {

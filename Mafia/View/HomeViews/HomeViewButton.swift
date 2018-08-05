@@ -12,7 +12,7 @@ class HomeViewButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.titleLabel?.font = UIFont(name: "Magical Mystery Tour", size: 35)
-        self.setTitleColor(UIColor(rgb: 0xef6e31), for: .normal)
+        self.setTitleColor(UIColor.white, for: .normal)
         self.translatesAutoresizingMaskIntoConstraints = false
         
         self.layer.shadowRadius = 3

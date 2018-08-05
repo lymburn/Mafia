@@ -23,18 +23,9 @@ class HomeController: UIViewController {
         return hv
     }()
     
-    let backgroundImage: UIImageView = {
-        let iv = UIImageView(image: UIImage(named: "TitleScreen"))
-        iv.clipsToBounds = true
-        iv.contentMode = .scaleAspectFill
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
-    }()
-    
     fileprivate func setupViews() {
-        view.addSubview(backgroundImage)
         view.addSubview(homeView)
-        view.setNeedsUpdateConstraints()
+        updateViewConstraints()
     }
     
     override func updateViewConstraints() {
@@ -44,11 +35,6 @@ class HomeController: UIViewController {
         homeView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         homeView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         homeView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        
-        backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        backgroundImage.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }
 

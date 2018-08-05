@@ -142,6 +142,7 @@
 				26DF851320AFBDF40058F003 /* View */,
 				26DF851220AFBDEA0058F003 /* Model */,
 				26DF850A20AFBD8F0058F003 /* Info.plist */,
+				26F33479211662EB003F8A34 /* ViewModel */,
 			);
 			path = Mafia;
 			sourceTree = "<group>";
@@ -154,6 +155,7 @@
 				26DF850220AFBD8D0058F003 /* Main.storyboard */,
 				26DF850720AFBD8F0058F003 /* LaunchScreen.storyboard */,
 				268E18A620C9D758003190BD /* Extensions.swift */,
+				2630DBF820CDE02200C81101 /* SocketHelper.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -170,7 +172,6 @@
 		26DF851220AFBDEA0058F003 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2630DBF820CDE02200C81101 /* SocketHelper.swift */,
 				2630DBFA20CDE3D300C81101 /* Message.swift */,
 			);
 			path = Model;
@@ -269,6 +270,13 @@
 				26F7EB4A20D1B7CF00172616 /* PlayerCell.swift */,
 			);
 			path = PlayerViews;
+			sourceTree = "<group>";
+		};
+		26F33479211662EB003F8A34 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		5C1597AAEE56F1830D6C4B75 /* Pods */ = {

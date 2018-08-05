@@ -12,7 +12,7 @@ class LobbyController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        socketHelper.setupSocket(name: "test", gameId: 123)
+        socketHelper.setupSocket(name: "test", gameId: "Plsbegq")
         tableView.register(LobbyCell.self, forCellReuseIdentifier: cellId)
         tableView.delegate = self
         tableView.dataSource = self

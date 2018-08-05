@@ -19,7 +19,7 @@ class SocketHelper {
     var messageInfo: [String: Any?]!
     weak var delegate: SocketHelperDelegate? = nil
     
-    func setupSocket(name: String, gameId: Int) {
+    func setupSocket(name: String, gameId: String) {
         manager = SocketManager(socketURL: URL(string: serverId)!, config: [.log(false), .compress, .forceWebsockets(true), .reconnects(true)])
         socket = manager.defaultSocket
         socket.on(clientEvent: .connect) {data, ack in
@@ -30,14 +30,15 @@ class SocketHelper {
         
         socket.on("messageToClient") {data, ack in
             self.messageInfo = data[0] as! [String : Any?]
+            print(self.messageInfo)
             self.delegate?.messageReceived()
         }
         
         socket.connect()
     }
     
-    func sendMessage(name: String, message: String, gameId: Int) {
-        let msgJSON: [String : Any] = ["player_name" : name, "message" : message, "game_id": 123]
+    func sendMessage(name: String, message: String, gameId: String) {
+        let msgJSON: [String : Any] = ["player_name" : name, "message" : message, "game_id": gameId]
         socket.emit("messageToServer", msgJSON)
     }
     

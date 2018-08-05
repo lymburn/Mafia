@@ -17,7 +17,7 @@ protocol HomeViewDelegate: class {
 class HomeView: BaseView {
     override func setupViews() {
         super.setupViews()
-        backgroundColor = .clear
+        backgroundColor = UIColor(rgb: 0x85E4FE)
         //Setup stack view
         stackView = UIStackView(arrangedSubviews: [joinButton, createButton, rolesButton])
         stackView.axis = .vertical
@@ -25,11 +25,14 @@ class HomeView: BaseView {
         stackView.alignment = .center
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
+        addSubview(sky)
+        addSubview(backgroundImage)
         addSubview(titleLabel)
         addSubview(stackView)
-        addSubview(profileButton)
-
-        setNeedsUpdateConstraints()
+        
+        updateConstraints()
+        
+        transitionSky()
     }
     
     var stackView: UIStackView!
@@ -56,20 +59,12 @@ class HomeView: BaseView {
         return bt
     }()
     
-    let profileButton: UIButton = {
-        let bt = UIButton()
-        bt.translatesAutoresizingMaskIntoConstraints = false
-        bt.setImage(UIImage(named: "ProfileButton"), for: .normal)
-        bt.addTarget(self, action: #selector(profilePressed), for: .touchDown)
-        return bt
-    }()
-    
     let titleLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Mafia"
         lb.font = UIFont(name: "Magical Mystery Tour", size: 60)
         lb.textAlignment = .center
-        lb.textColor = UIColor(rgb: 0xef6e31)
+        lb.textColor = UIColor.white
         lb.translatesAutoresizingMaskIntoConstraints = false
         lb.layer.shadowRadius = 3
         lb.layer.shadowOpacity = 0.6
@@ -78,28 +73,68 @@ class HomeView: BaseView {
         return lb
     }()
     
+    let backgroundImage: UIImageView = {
+        let iv = UIImageView(image: UIImage(named: "Day"))
+        iv.clipsToBounds = true
+        iv.contentMode = .scaleAspectFill
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }()
+    
+    let sky: UIImageView = {
+        let iv = UIImageView(image: UIImage(named: "Sky"))
+        iv.clipsToBounds = true
+        iv.contentMode = .center
+        iv.isUserInteractionEnabled = true
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }()
+    
     override func updateConstraints() {
         super.updateConstraints()
         let screenSize: CGRect = UIScreen.main.bounds
         
         titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: screenSize.height*0.25).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: screenSize.height*0.05).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 40)
         
         stackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: screenSize.height*0.15).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -screenSize.height*0.05).isActive = true
+        stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: screenSize.height*0.2).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -screenSize.height*0.15).isActive = true
         
         createButton.widthAnchor.constraint(equalToConstant: 130).isActive = true
         joinButton.widthAnchor.constraint(equalToConstant: 130).isActive = true
         rolesButton.widthAnchor.constraint(equalToConstant: 130).isActive = true
         
-        profileButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
-        profileButton.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        profileButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        profileButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        sky.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        sky.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        sky.centerYAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        
+        backgroundImage.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        backgroundImage.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        backgroundImage.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        backgroundImage.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    }
+    
+    //Repeatedly transition the sky between day and night
+    private func transitionSky() {
+        Timer.scheduledTimer(withTimeInterval: 2, repeats: true) {(timer) in
+            //If sky is day, transition to night. Else, transition to day
+            let skyColor = self.backgroundColor == UIColor(rgb: 0x85E4FE) ? UIColor(rgb: 0x011724) : UIColor(rgb: 0x85E4FE)
+            let skyImage = self.backgroundImage.image == UIImage(named: "Day") ? UIImage(named: "Night") : UIImage(named: "Day")
+            let rotationAngle = self.backgroundImage.image == UIImage(named: "Day") ? CGFloat.pi : 2*CGFloat.pi
+            
+            UIView.animate(withDuration:2.0, animations: {
+                self.sky.transform = CGAffineTransform(rotationAngle: rotationAngle)
+                self.backgroundColor = skyColor
+            })
+            
+            UIView.transition(with: self.backgroundImage, duration: 2.0, options: .transitionCrossDissolve, animations: {
+                self.backgroundImage.image = skyImage
+            })
+        }
     }
 }
 
@@ -118,10 +153,6 @@ extension HomeView {
     @objc func rolesPressed() {
         animateButton(button: rolesButton)
         delegate?.rolesPressed()
-    }
-    
-    @objc func profilePressed() {
-        
     }
     
     private func animateButton(button: UIButton) {
