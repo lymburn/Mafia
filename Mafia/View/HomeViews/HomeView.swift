@@ -96,13 +96,13 @@ class HomeView: BaseView {
         
         titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: screenSize.height*0.05).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: screenSize.height*0.05).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 40)
         
         stackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: screenSize.height*0.2).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -screenSize.height*0.15).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -screenSize.height*0.15).isActive = true
         
         createButton.widthAnchor.constraint(equalToConstant: 130).isActive = true
         joinButton.widthAnchor.constraint(equalToConstant: 130).isActive = true
@@ -126,10 +126,10 @@ class HomeView: BaseView {
             let skyImage = self.backgroundImage.image == UIImage(named: "Day") ? UIImage(named: "Night") : UIImage(named: "Day")
             let rotationAngle = self.backgroundImage.image == UIImage(named: "Day") ? CGFloat.pi : 2*CGFloat.pi
             
-            UIView.animate(withDuration:2.0, animations: {
-                self.sky.transform = CGAffineTransform(rotationAngle: rotationAngle)
-                self.backgroundColor = skyColor
-            })
+            UIView.animate(withDuration: 2.0, delay: 0.0, options: .allowUserInteraction, animations: {
+                    self.sky.transform = CGAffineTransform(rotationAngle: rotationAngle)
+                    self.backgroundColor = skyColor
+                }, completion: nil)
             
             UIView.transition(with: self.backgroundImage, duration: 2.0, options: .transitionCrossDissolve, animations: {
                 self.backgroundImage.image = skyImage
@@ -141,6 +141,7 @@ class HomeView: BaseView {
 //MARK: Touch events
 extension HomeView {
     @objc func joinPressed() {
+        print("join")
         animateButton(button: joinButton)
         delegate?.joinPressed()
     }

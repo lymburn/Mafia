@@ -33,8 +33,8 @@ class HomeController: UIViewController {
         
         homeView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         homeView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        homeView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        homeView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        homeView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        homeView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
     }
 }
 
