@@ -15,7 +15,6 @@ class GameController: UIViewController{
         super.viewDidLoad()
         setupViews()
         addSwipeDownGesture()
-        socketHelper.delegate = self
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -36,7 +35,6 @@ class GameController: UIViewController{
     let backgroundCellId = "backgroundCellId"
     let clearNotificationCellId = "clearNotificationCellId"
     var messages = [Message]()
-    var socketHelper: SocketHelper!
     
     lazy var phoneCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -191,7 +189,7 @@ class GameController: UIViewController{
 //MARK: Socket delegate
 extension GameController: SocketHelperDelegate {
     func messageReceived() {
-        let message = socketHelper.getMessage()
+        let message = SocketHelper.shared.getMessage()
         messages.append(message)
     }
 }
@@ -210,7 +208,7 @@ extension GameController: BackgroundDataControllerDelegate {
 //MARK: Phone collection view delegate methods
 extension GameController: PhoneDataControllerDelegate {
     func sendPressed(withMessage message: String) {
-        socketHelper.sendMessage(name: "Eugene", message: message, gameId: "Plsbegq")
+        SocketHelper.shared.sendMessage(name: "Eugene", message: message, gameId: "Plsbegq")
     }
     
     func chatBackPressed() {

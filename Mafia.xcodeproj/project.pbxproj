@@ -21,6 +21,7 @@
 		268E18A720C9D758003190BD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18A620C9D758003190BD /* Extensions.swift */; };
 		268E18AB20C9DFF8003190BD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18AA20C9DFF8003190BD /* HomeView.swift */; };
 		268E18AD20C9E023003190BD /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E18AC20C9E022003190BD /* BaseView.swift */; };
+		2690EF212124E44D002C78FD /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2690EF202124E44D002C78FD /* Service.swift */; };
 		2698B2F920D30739000F9391 /* ChatHeaderBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2698B2F820D30739000F9391 /* ChatHeaderBar.swift */; };
 		26A2B1C820D59D6800254A12 /* PhoneDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A2B1C720D59D6800254A12 /* PhoneDataController.swift */; };
 		26A2B1CA20D5A1F500254A12 /* BackgroundDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A2B1C920D5A1F500254A12 /* BackgroundDataController.swift */; };
@@ -57,12 +58,13 @@
 		2661D5C320CA0877003A6A02 /* JoinController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinController.swift; sourceTree = "<group>"; };
 		2661D5C520CA1577003A6A02 /* HomeViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewButton.swift; sourceTree = "<group>"; };
 		2662277720CC7B2300217901 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
-		2667CECF20CC40E00048536C /* MagicalMystery.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MagicalMystery.ttf; path = Assets.xcassets/MagicalMystery.ttf; sourceTree = "<group>"; };
+		2667CECF20CC40E00048536C /* MagicalMystery.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MagicalMystery.ttf; sourceTree = "<group>"; };
 		2667CED120CC4C2F0048536C /* LobbyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyCell.swift; sourceTree = "<group>"; };
 		2667CED320CC56240048536C /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		268E18A620C9D758003190BD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		268E18AA20C9DFF8003190BD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		268E18AC20C9E022003190BD /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		2690EF202124E44D002C78FD /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		2698B2F820D30739000F9391 /* ChatHeaderBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderBar.swift; sourceTree = "<group>"; };
 		26A2B1C720D59D6800254A12 /* PhoneDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDataController.swift; sourceTree = "<group>"; };
 		26A2B1C920D5A1F500254A12 /* BackgroundDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundDataController.swift; sourceTree = "<group>"; };
@@ -115,6 +117,14 @@
 			path = PhoneViews;
 			sourceTree = "<group>";
 		};
+		2690EF1E2124E2DB002C78FD /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				2667CECF20CC40E00048536C /* MagicalMystery.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		26DF84F220AFBD8D0058F003 = {
 			isa = PBXGroup;
 			children = (
@@ -150,12 +160,13 @@
 		26DF851020AFBD990058F003 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				2667CECF20CC40E00048536C /* MagicalMystery.ttf */,
+				2690EF1E2124E2DB002C78FD /* Fonts */,
 				26DF850520AFBD8F0058F003 /* Assets.xcassets */,
 				26DF850220AFBD8D0058F003 /* Main.storyboard */,
 				26DF850720AFBD8F0058F003 /* LaunchScreen.storyboard */,
 				268E18A620C9D758003190BD /* Extensions.swift */,
 				2630DBF820CDE02200C81101 /* SocketHelper.swift */,
+				2690EF202124E44D002C78FD /* Service.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -424,6 +435,7 @@
 				26C7CE3B20E7FB5100E83DE9 /* BaseTableCell.swift in Sources */,
 				26A2B1D020D5B37200254A12 /* NewsTableDataController.swift in Sources */,
 				26A2B1CA20D5A1F500254A12 /* BackgroundDataController.swift in Sources */,
+				2690EF212124E44D002C78FD /* Service.swift in Sources */,
 				26A5F24120CF324F005E2280 /* ChatView.swift in Sources */,
 				26F7EB4720D1B4BF00172616 /* PlayerListView.swift in Sources */,
 				26A2B1C820D59D6800254A12 /* PhoneDataController.swift in Sources */,

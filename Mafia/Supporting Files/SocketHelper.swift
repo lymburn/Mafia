@@ -13,6 +13,7 @@ protocol SocketHelperDelegate: class {
 }
 
 class SocketHelper {
+    static let shared = SocketHelper()
     private let serverId = "http://ec2-18-191-123-240.us-east-2.compute.amazonaws.com:8080/"
     private var manager:SocketManager!
     private var socket: SocketIOClient!
@@ -30,7 +31,6 @@ class SocketHelper {
         
         socket.on("messageToClient") {data, ack in
             self.messageInfo = data[0] as! [String : Any?]
-            print(self.messageInfo)
             self.delegate?.messageReceived()
         }
         

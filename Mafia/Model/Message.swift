@@ -9,6 +9,6 @@
 import Foundation
 
 struct Message: Codable {
-    var content: String = ""
-    var sender: String = ""
+    var content: String!
+    var sender: String!
 }

@@ -12,14 +12,16 @@ class LobbyController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        socketHelper.setupSocket(name: "test", gameId: "Plsbegq")
+        SocketHelper.shared.setupSocket(name: "test", gameId: gameId)
         tableView.register(LobbyCell.self, forCellReuseIdentifier: cellId)
         tableView.delegate = self
         tableView.dataSource = self
+        
+        fetchGameData()
     }
     
     let cellId = "cellId"
-    let socketHelper = SocketHelper()
+    var gameId: String!
     
     let container: UIView = {
         let view = UIView()
@@ -115,10 +117,21 @@ extension LobbyController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+fileprivate extension LobbyController {
+    func fetchGameData() {
+        Service.shared.fetchChatHistory(gameId: gameId) { (response, error) in
+            if let err = error {
+                print(err)
+                return
+            }
+            print(response)
+        }
+    }
+}
+
 extension LobbyController {
     @objc func startPressed() {
         let game = GameController()
-        game.socketHelper = socketHelper
         present(game, animated: true, completion: nil)
     }
 }
