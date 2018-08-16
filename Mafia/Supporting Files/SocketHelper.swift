@@ -43,11 +43,14 @@ class SocketHelper {
     }
     
     func getMessage() -> Message {
+        /*
         var message = Message()
         if let content = messageInfo["message"] as? String, let name = messageInfo["player_name"] as? String {
             message.content = content
             message.sender = name
         }
         return message
+ */
+        return Message(content: "", sender: "", type: "")
     }
 }
