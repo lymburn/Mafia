@@ -12,24 +12,17 @@ class LobbyController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        //SocketHelper.shared.setupSocket(name: "test", gameId: gameId)
-        tableView.register(LobbyCell.self, forCellReuseIdentifier: cellId)
-        tableView.delegate = self
-        tableView.dataSource = self
+        SocketHelper.shared.setupSocket(name: "test", gameId: gameId)
+        chatBox.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
+        chatBox.delegate = self
+        chatBox.dataSource = self
         
-        //fetchGameData()
+        fetchGameData()
     }
     
     let cellId = "cellId"
     var gameId: String!
     var messageViewModels = [MessageViewModel]()
-    
-    let container: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(rgb: 0x181F42)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
     
     let startButton: HomeViewButton = {
         let bt = HomeViewButton()
@@ -45,63 +38,52 @@ class LobbyController: UIViewController {
         bt.setImage(UIImage(named: "ExitButton"), for: .normal)
         return bt
     }()
-    
-    let infoButton: UIButton = {
-        let bt = UIButton()
-        bt.translatesAutoresizingMaskIntoConstraints = false
-        bt.setImage(UIImage(named: "InfoButton"), for: .normal)
-        return bt
-    }()
 
-    let tableView: UITableView = {
-        let tb = UITableView()
-        tb.rowHeight = 70
-        tb.translatesAutoresizingMaskIntoConstraints = false
-        tb.tableFooterView = UIView()
-        tb.backgroundColor = .clear
-        tb.separatorInset = UIEdgeInsets.zero
-        tb.separatorColor = UIColor(rgb: 0xEDE1BE)
-        return tb
+    let chatBox: UITableView = {
+        let tv = UITableView()
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.separatorColor = .clear
+        tv.showsVerticalScrollIndicator = false
+        tv.allowsSelection = false
+        tv.tableFooterView = UIView()
+        tv.backgroundColor = .clear
+        return tv
+    }()
+    
+    let keyboardView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.font = UIFont(name: "Helvetica", size: 20)
+        textView.textColor = UIColor(rgb: 0x718093)
+        textView.text = "Type your message here..."
+        textView.clipsToBounds = true
+        textView.backgroundColor = UIColor(rgb: 0xdcdde1)
+        textView.isScrollEnabled = false
+        textView.returnKeyType = UIReturnKeyType.send
+        textView.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 5, right: 8)
+        
+        return textView
     }()
     
     fileprivate func setupViews() {
         view.backgroundColor = UIColor(rgb: 0x181F42)
-        view.addSubview(container)
-        view.addSubview(tableView)
-        container.addSubview(startButton)
-        container.addSubview(exitButton)
-        container.addSubview(infoButton)
+        view.addSubview(chatBox)
+        view.addSubview(keyboardView)
         self.updateViewConstraints()
     }
     
     override func updateViewConstraints() {
         super.updateViewConstraints()
-        let screenSize: CGRect = UIScreen.main.bounds
         
-        container.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        container.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        container.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        container.heightAnchor.constraint(equalToConstant: screenSize.height*0.15).isActive = true
+        chatBox.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        chatBox.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        chatBox.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        chatBox.bottomAnchor.constraint(equalTo: keyboardView.topAnchor, constant: -8).isActive = true
         
-        startButton.centerYAnchor.constraint(equalTo: container.centerYAnchor).isActive = true
-        startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        startButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
-        
-        exitButton.centerYAnchor.constraint(equalTo: container.centerYAnchor).isActive = true
-        exitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12).isActive = true
-        exitButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        exitButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        
-        infoButton.centerYAnchor.constraint(equalTo: container.centerYAnchor).isActive = true
-        infoButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12).isActive = true
-        infoButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        infoButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
+        keyboardView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        keyboardView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        keyboardView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        keyboardView.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
 }
 
