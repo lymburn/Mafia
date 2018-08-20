@@ -12,7 +12,7 @@ class LobbyController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        SocketHelper.shared.setupSocket(name: "test", gameId: gameId)
+        SocketHelper.shared.setupSocket()
         chatBox.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
         chatBox.delegate = self
         chatBox.dataSource = self

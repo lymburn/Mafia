@@ -8,16 +8,10 @@
 
 import UIKit
 
-class ChatMessageCell: BaseTableCell<TableCellInfo> {
+class ChatMessageCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
-    }
-    
-    override var info: TableCellInfo! {
-        didSet {
-            profilePic.image = UIImage(named: info.imageName!)
-        }
     }
     
     var messageViewModel: MessageViewModel! {
@@ -46,7 +40,7 @@ class ChatMessageCell: BaseTableCell<TableCellInfo> {
     }()
     
     let profilePic: UIImageView = {
-        let iv = UIImageView()
+        let iv = UIImageView(image: #imageLiteral(resourceName: "Stock 1"))
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false

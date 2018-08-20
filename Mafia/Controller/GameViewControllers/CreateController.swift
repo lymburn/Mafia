@@ -13,6 +13,9 @@ class CreateController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        
+        SocketHelper.shared.setupSocket()
+        SocketHelper.shared.createProfile(name: "Eugene")
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
