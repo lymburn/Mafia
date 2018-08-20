@@ -16,9 +16,7 @@ class PlayerCell: BaseTableCell<TableCellInfo> {
     
     override var info: TableCellInfo! {
         didSet {
-            name.text = info.name
-            profilePic.image = UIImage(named: info.imageName!)
-            messageText.text = info.text
+
         }
     }
     

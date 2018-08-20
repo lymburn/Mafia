@@ -16,9 +16,7 @@ class NotificationCell: BaseTableCell<TableCellInfo> {
     
     override var info: TableCellInfo! {
         didSet {
-            header.text = info.name
             icon.image = UIImage(named: info.imageName!)
-            newsDescription.text = info.text
         }
     }
     

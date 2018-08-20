@@ -15,11 +15,7 @@ class TargetCell: BaseTableCell<TableCellInfo> {
         setupViews()
     }
     
-    override var info: TableCellInfo! {
-        didSet {
-            name.text = info.name
-        }
-    }
+
     
     let name: UILabel = {
         let label = UILabel()

@@ -16,7 +16,7 @@ class NewsTableDataController: BaseTableDataController<PlayerCell, TableCellInfo
     
     func populateCells() {
         for i in 0..<names.count {
-            let newCell = TableCellInfo(name: names[i], text: "Lorem ipsum dolor sit amet, per prima gloriatur maiestatis ut. Vis civibus efficiendi cotidieque id. Putant luptatum similique his ut, dicam virtute pertinax his ne. Stet utamur atomorum per id, mea et causae comprehensam", imageName: imageNames[i])
+            let newCell = TableCellInfo(imageName: imageNames[i])
             infos.append(newCell)
         }
     }

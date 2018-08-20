@@ -93,9 +93,10 @@ extension LobbyController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ChatMessageCell
         cell.backgroundColor = .clear
         cell.selectionStyle = .none
+        cell.messageViewModel = messageViewModels[indexPath.row]
         return cell
     }
 }

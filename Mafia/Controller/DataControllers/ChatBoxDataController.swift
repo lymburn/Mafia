@@ -8,17 +8,18 @@
 
 import UIKit
 
-class ChatBoxDataController : BaseTableDataController<PlayerCell, TableCellInfo>, UITableViewDelegate {
-    override init() {
-        super.init()
-        populateCells()
+class ChatBoxDataController: NSObject, UITableViewDataSource {
+    let cellId = "cellId"
+    var messageViewModels: [MessageViewModel]!
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messageViewModels.count
     }
     
-    func populateCells() {
-        for i in 0..<names.count {
-            let newCell = TableCellInfo(name: names[i], text: messages[i], imageName: imageNames[i])
-            infos.append(newCell)
-        }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ChatMessageCell
+        cell.messageViewModel = messageViewModels[indexPath.row]
+        return cell
     }
     
     let names = ["Jane Doe", "Doctor Strange", "Mr Monopoly", "Ginny Weasley"]

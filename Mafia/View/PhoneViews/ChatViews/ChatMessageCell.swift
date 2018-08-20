@@ -16,12 +16,16 @@ class ChatMessageCell: BaseTableCell<TableCellInfo> {
     
     override var info: TableCellInfo! {
         didSet {
-            messageTextView.text = info.text
-            name.text = info.name
             profilePic.image = UIImage(named: info.imageName!)
         }
     }
     
+    var messageViewModel: MessageViewModel! {
+        didSet {
+            messageTextView.text = messageViewModel.content
+            name.text = messageViewModel.sender
+        }
+    }
     
     let messageTextView: UITextView = {
         let textView = UITextView()
