@@ -189,8 +189,7 @@ class GameController: UIViewController{
 //MARK: Socket delegate
 extension GameController: SocketHelperDelegate {
     func messageReceived() {
-        let message = SocketHelper.shared.getMessage()
-        messages.append(message)
+        
     }
 }
 

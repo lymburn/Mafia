@@ -33,10 +33,14 @@ class SocketHelper {
     }
     
     //Create profile with player name to get player id from server
-    func createProfile(name: String) {
-        let profileJSON: [String: Any] = ["player_name" : name]
-        socket.emitWithAck("createProfile", profileJSON).timingOut(after: 3) { data in
-            print(data)
+    func createProfile(name: String, completion: @escaping (String)->()) {
+        socket.on(clientEvent: .connect) {data, ack in
+            let profileJSON: [String: Any] = ["player_name" : name]
+            self.socket.emitWithAck("createProfile", profileJSON).timingOut(after: 0) { data in
+                //Return player id in completion handler
+                let profileInfo = data[0] as! [String: AnyObject]
+                completion(profileInfo["player_id"] as! String)
+            }
         }
     }
     
@@ -45,9 +49,10 @@ class SocketHelper {
         let msgJSON: [String : Any] = ["player_name" : name, "message" : message, "game_id": gameId]
         socket.emit("messageToServer", msgJSON)
     }
-        
-
     
+    func createGame(data: [String: String]) {
+        socket.emit("createGame", data)
+    }
 }
 
 //MARK: Events to listen to

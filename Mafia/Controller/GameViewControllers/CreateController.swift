@@ -13,9 +13,7 @@ class CreateController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        
         SocketHelper.shared.setupSocket()
-        SocketHelper.shared.createProfile(name: "Eugene")
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -29,6 +27,15 @@ class CreateController: UIViewController {
         bt.setTitle("Create", for: .normal)
         bt.addTarget(self, action: #selector(createPressed), for: .touchDown)
         return bt
+    }()
+    
+    let profileTextField: UITextField = {
+        let tf = UITextField()
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.placeholder = "Profile Name"
+        tf.textAlignment = .center
+        tf.textColor = .white
+        return tf
     }()
     
     let mafiaTextField: UITextField = {
@@ -73,7 +80,7 @@ class CreateController: UIViewController {
         stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: screenSize.height*0.2).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -screenSize.height*0.4).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -screenSize.height*0.3).isActive = true
     }
 }
 
@@ -82,7 +89,7 @@ fileprivate extension CreateController {
         view.backgroundColor = UIColor(rgb: 0x85E4FE)
         view.addSubview(createButton)
         //Set up stack view
-        stackView = UIStackView(arrangedSubviews: [mafiaTextField, detectiveTextField, guardianTextField])
+        stackView = UIStackView(arrangedSubviews: [profileTextField, mafiaTextField, detectiveTextField, guardianTextField])
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
         stackView.alignment = .center
@@ -97,5 +104,20 @@ extension CreateController {
     @objc func createPressed() {
         let lobby = LobbyController()
         present(lobby, animated: true, completion: nil)
+    }
+    
+    fileprivate func createGame() {
+        var playerId: String!
+        let detectiveNum = detectiveTextField.text ?? "0"
+        let mafiaNum = mafiaTextField.text ?? "0"
+        let guardianNum = guardianTextField.text ?? "0"
+        
+        //Get playerId from creating profile
+        SocketHelper.shared.createProfile(name: profileTextField.text ?? "Eugene") {id in
+            playerId = id
+        }
+        
+        let data: [String: String] = ["player_id": playerId, "detectiveNum": detectiveNum, "mafiaNum": mafiaNum, "guardianAngelNum" : guardianNum, "townsPeopleNum": "0"]
+        SocketHelper.shared.createGame(data: data)
     }
 }
