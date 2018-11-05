@@ -64,7 +64,7 @@ fileprivate extension JoinController {
 
 extension JoinController {
     @objc func joinPressed() {
-        let lobby = LobbyController()
+        let lobby = GameController()
         lobby.gameId = textField.text!
         present(lobby, animated: true, completion: nil)
     }

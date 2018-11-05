@@ -15,9 +15,24 @@ class GameController: UIViewController{
         super.viewDidLoad()
         setupViews()
         addSwipeDownGesture()
+        hideKeyboard()
+        SocketHelper.shared.setupSocket()
+        SocketHelper.shared.delegate = self
+        
+        SocketHelper.shared.createProfile(name: "Eugene") { playerId in
+            if (self.created) {
+                self.createData["player_id"] = playerId
+                SocketHelper.shared.createGame(data: self.createData) {createdGameId in
+                    self.gameId = createdGameId
+                    SocketHelper.shared.joinGame(name: "Eugene", gameId: self.gameId)
+                }
+            } else {
+                SocketHelper.shared.joinGame(name: "Eugene", gameId: self.gameId)
+            }
+        }
 
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -26,6 +41,9 @@ class GameController: UIViewController{
         notificationCollectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .bottom, animated: false)
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     let screenSize: CGRect = UIScreen.main.bounds
     let cellId = "cellId"
@@ -35,6 +53,10 @@ class GameController: UIViewController{
     let backgroundCellId = "backgroundCellId"
     let clearNotificationCellId = "clearNotificationCellId"
     var messages = [Message]()
+    var gameId: String!
+    var playerId: String!
+    var created: Bool = false
+    var createData: [String:String]!
     
     lazy var phoneCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -188,8 +210,10 @@ class GameController: UIViewController{
 
 //MARK: Socket delegate
 extension GameController: SocketHelperDelegate {
-    func messageReceived() {
-        
+    func messageReceived(message: String?, from: String?, type: String?) {
+        let newMessage: Message = Message(content: message ?? "", sender: from ?? "", type: type ?? "")
+        phoneDataController.chatBoxDataController.messageViewModels.append(MessageViewModel(message: newMessage))
+        phoneCollectionView.reloadData()
     }
 }
 
@@ -207,7 +231,7 @@ extension GameController: BackgroundDataControllerDelegate {
 //MARK: Phone collection view delegate methods
 extension GameController: PhoneDataControllerDelegate {
     func sendPressed(withMessage message: String) {
-        SocketHelper.shared.sendMessage(name: "Eugene", message: message, gameId: "Plsbegq")
+        SocketHelper.shared.sendMessage(name: "Eugene", message: message, gameId: gameId)
     }
     
     func chatBackPressed() {
@@ -243,7 +267,7 @@ extension GameController: NotificationDataControllerDelegate {
 //MARK: View management methods for the keyboard
 extension GameController {
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0{
                 self.view.frame.origin.y -= keyboardSize.height
             }
@@ -251,7 +275,7 @@ extension GameController {
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y != 0 {
                 self.view.frame.origin.y += keyboardSize.height
             }
@@ -273,6 +297,16 @@ extension GameController {
         UIView.animate(withDuration: 0.5) {
             self.targetListView.transform = CGAffineTransform(translationX: 0, y: -self.screenSize.height*0.95)
         }
+    }
+    
+    func hideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GameController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 

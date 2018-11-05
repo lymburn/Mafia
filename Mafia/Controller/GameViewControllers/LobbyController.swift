@@ -12,7 +12,7 @@ class LobbyController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        SocketHelper.shared.setupSocket()
+        //SocketHelper.shared.setupSocket()
         chatBox.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
         chatBox.delegate = self
         chatBox.dataSource = self
@@ -103,6 +103,7 @@ extension LobbyController: UITableViewDelegate, UITableViewDataSource {
 
 fileprivate extension LobbyController {
     func fetchGameData() {
+        /*
         Service.shared.fetchChatHistory(gameId: gameId) { (messages, error) in
             if let err = error {
                 print(err)
@@ -111,6 +112,14 @@ fileprivate extension LobbyController {
 
             self.messageViewModels = messages?.map({return MessageViewModel(message: $0)}) ?? []
         }
+         */
+        
+        //Stock data for lobby
+        for _ in 0..<5 {
+            messageViewModels.append(MessageViewModel(message: Message(content: "Test message", sender: "Eugene", type: "admin")))
+        }
+        
+        chatBox.reloadData()
     }
 }
 

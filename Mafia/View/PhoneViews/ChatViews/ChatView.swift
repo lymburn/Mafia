@@ -20,7 +20,7 @@ class ChatView: UICollectionViewCell {
         setupViews()
         chatBox.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
         chatBox.estimatedRowHeight = 100
-        chatBox.rowHeight = UITableViewAutomaticDimension
+        chatBox.rowHeight = UITableView.automaticDimension
         
         chatHeader.delegate = self
         keyboardView.delegate = self

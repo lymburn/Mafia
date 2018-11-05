@@ -9,6 +9,8 @@
 import UIKit
 
 struct TableCellInfo {
+    var name: String?
+    var message: String?
     var imageName: String?
 }
 

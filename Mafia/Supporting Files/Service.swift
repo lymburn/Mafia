@@ -12,7 +12,7 @@ import UIKit
 
 class Service: NSObject {
     static let shared = Service()
-    func fetchChatHistory(gameId: String, completion: @escaping ([Message]?, Error?) -> ()) {
+    func fetchChatHistory(gameId: String, completion: @escaping ([Message]?, Error?) -> Void) {
         let url = "http://ec2-18-191-123-240.us-east-2.compute.amazonaws.com:8080/api/game/\(gameId)"
         Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON {response in
             guard response.result.error == nil else {
@@ -27,10 +27,10 @@ class Service: NSObject {
             
             var messageHistory = [Message]()
             for message in chatLog {
-                let content = message["message"] as? String
-                let sender = message["from"] as? String
-                let type = message["msg_type"] as? String
-                messageHistory.append(Message(content: content!, sender: sender!, type: type!))
+                let content = message["message"] as! String
+                let sender = message["from"] as! String
+                let type = message["msg_type"] as! String
+                messageHistory.append(Message(content: content, sender: sender, type: type))
             }
             
             completion(messageHistory, nil)

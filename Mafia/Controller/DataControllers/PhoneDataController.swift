@@ -27,7 +27,10 @@ class PhoneDataController: NSObject, UICollectionViewDataSource, UICollectionVie
         return playerTableDataController
     }()
     
-    let chatBoxDataController = ChatBoxDataController()
+    lazy var chatBoxDataController: ChatBoxDataController = {
+        let chatBoxDataController = ChatBoxDataController()
+        return chatBoxDataController
+    }()
     
     weak var delegate: PhoneDataControllerDelegate? = nil
     
@@ -49,6 +52,7 @@ class PhoneDataController: NSObject, UICollectionViewDataSource, UICollectionVie
             cell.backgroundColor = UIColor.white
             cell.chatBox.dataSource = chatBoxDataController
             cell.delegate = self
+            cell.chatBox.reloadData()
             return cell
         }
     }

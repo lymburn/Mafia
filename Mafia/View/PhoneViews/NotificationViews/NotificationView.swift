@@ -16,7 +16,7 @@ class NotificationView: UICollectionViewCell {
         
         newsTable.register(NotificationCell.self, forCellReuseIdentifier: cellId)
         newsTable.estimatedRowHeight = 100
-        newsTable.rowHeight = UITableViewAutomaticDimension
+        newsTable.rowHeight = UITableView.automaticDimension
     }
     
     let cellId = "cellId"

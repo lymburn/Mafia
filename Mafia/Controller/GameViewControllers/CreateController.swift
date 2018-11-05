@@ -14,6 +14,9 @@ class CreateController: UIViewController {
         super.viewDidLoad()
         setupViews()
         SocketHelper.shared.setupSocket()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -79,7 +82,7 @@ class CreateController: UIViewController {
         
         stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: screenSize.height*0.2).isActive = true
+        stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: screenSize.height*0.45).isActive = true
         stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -screenSize.height*0.3).isActive = true
     }
 }
@@ -102,22 +105,32 @@ fileprivate extension CreateController {
 
 extension CreateController {
     @objc func createPressed() {
-        let lobby = LobbyController()
-        present(lobby, animated: true, completion: nil)
-    }
-    
-    fileprivate func createGame() {
-        var playerId: String!
         let detectiveNum = detectiveTextField.text ?? "0"
         let mafiaNum = mafiaTextField.text ?? "0"
         let guardianNum = guardianTextField.text ?? "0"
-        
-        //Get playerId from creating profile
-        SocketHelper.shared.createProfile(name: profileTextField.text ?? "Eugene") {id in
-            playerId = id
+        let lobby = GameController()
+        lobby.created = true
+        lobby.createData = ["player_id": "0", "detectiveNum": detectiveNum, "mafiaNum": mafiaNum, "guardianAngelNum" : guardianNum, "townsPeopleNum": "0"]
+        present(lobby, animated: true, completion: nil)
+    }
+
+}
+
+//MARK: View management methods for the keyboard
+extension CreateController {
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
         }
-        
-        let data: [String: String] = ["player_id": playerId, "detectiveNum": detectiveNum, "mafiaNum": mafiaNum, "guardianAngelNum" : guardianNum, "townsPeopleNum": "0"]
-        SocketHelper.shared.createGame(data: data)
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0 {
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
     }
 }

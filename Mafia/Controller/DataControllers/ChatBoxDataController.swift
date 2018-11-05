@@ -10,7 +10,7 @@ import UIKit
 
 class ChatBoxDataController: NSObject, UITableViewDataSource {
     let cellId = "cellId"
-    var messageViewModels: [MessageViewModel]!
+    var messageViewModels = [MessageViewModel]()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messageViewModels.count

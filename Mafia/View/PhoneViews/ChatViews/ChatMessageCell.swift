@@ -9,7 +9,7 @@
 import UIKit
 
 class ChatMessageCell: UITableViewCell {
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
     }
@@ -40,7 +40,7 @@ class ChatMessageCell: UITableViewCell {
     }()
     
     let profilePic: UIImageView = {
-        let iv = UIImageView(image: #imageLiteral(resourceName: "Stock 1"))
+        let iv = UIImageView(image: UIImage(named: "Stock 1"))
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false

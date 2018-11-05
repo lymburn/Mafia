@@ -20,17 +20,6 @@ class BackgroundView: UICollectionViewCell {
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipedUp))
         swipeUp.direction = .up
         backgroundImage.addGestureRecognizer(swipeUp)
-        
-        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {(tiner) in
-            UIView.animate(withDuration:2.0, animations: {
-                self.sky.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
-                self.backgroundColor = UIColor(rgb: 0x011724)
-            })
-            
-            UIView.transition(with: self.backgroundImage, duration: 2.0, options: .transitionCrossDissolve, animations: {
-                self.backgroundImage.image = UIImage(named: "Night")
-            })
-        }
     }
     
     weak var delegate: BackgroundViewDelegate? = nil

@@ -141,7 +141,6 @@ class HomeView: BaseView {
 //MARK: Touch events
 extension HomeView {
     @objc func joinPressed() {
-        print("join")
         animateButton(button: joinButton)
         delegate?.joinPressed()
     }

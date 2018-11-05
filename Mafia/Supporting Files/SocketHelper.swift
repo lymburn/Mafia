@@ -9,7 +9,7 @@
 import SocketIO
 
 protocol SocketHelperDelegate: class {
-    func messageReceived()
+    func messageReceived(message: String?, from: String?, type: String?)
 }
 
 class SocketHelper {
@@ -46,12 +46,20 @@ class SocketHelper {
     
     //Send message to chat
     func sendMessage(name: String, message: String, gameId: String) {
-        let msgJSON: [String : Any] = ["player_name" : name, "message" : message, "game_id": gameId]
+        let msgJSON: [String : Any] = ["player_name" : name, "message" : message, "game_id": gameId, "msg_type": "chat", "messageTo": "all"]
         socket.emit("messageToServer", msgJSON)
     }
     
-    func createGame(data: [String: String]) {
-        socket.emit("createGame", data)
+    func createGame(data: [String: String], completion: @escaping (String)->()) {
+        socket.emitWithAck("createGame", data).timingOut(after: 0) {callbackData in
+            let cbData = callbackData[0] as! [String : AnyObject]
+            completion(cbData["game_id"] as! String)
+        }
+    }
+    
+    func joinGame(name: String, gameId: String) {
+        let msgJSON: [String : Any] = ["game_id" : gameId, "player_name": name]
+        socket.emit("joinGameRoom", msgJSON)
     }
 }
 
@@ -59,7 +67,8 @@ class SocketHelper {
 fileprivate extension SocketHelper {
     func receiveMessage() {
         socket.on("messageToClient") {data, ack in
-            self.delegate?.messageReceived()
+            let chatInfo = data[0] as! [String : AnyObject]
+            self.delegate?.messageReceived(message: chatInfo["message"] as? String, from: chatInfo["from"] as? String, type: chatInfo["msg_type"] as? String)
         }
     }
     

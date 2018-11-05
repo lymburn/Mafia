@@ -16,7 +16,7 @@ class TargetsDataController: BaseTableDataController<PlayerCell, TableCellInfo>,
     
     func populateCells() {
         for i in 0..<names.count {
-            let newCell = TableCellInfo(imageName: nil)
+            let newCell = TableCellInfo(name: nil, message: nil, imageName: nil)
             infos.append(newCell)
         }
     }

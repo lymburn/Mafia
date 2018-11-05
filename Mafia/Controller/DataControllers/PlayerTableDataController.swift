@@ -20,7 +20,7 @@ class PlayerTableDataController: BaseTableDataController<PlayerCell, TableCellIn
     
     func populateCells() {
         for i in 0..<names.count {
-            let newCell = TableCellInfo(imageName: imageNames[i])
+            let newCell = TableCellInfo(name: names[i], message: messages[i], imageName: imageNames[i])
             infos.append(newCell)
         }
     }

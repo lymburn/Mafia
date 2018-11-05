@@ -9,14 +9,16 @@
 import UIKit
 
 class PlayerCell: BaseTableCell<TableCellInfo> {
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
     }
     
     override var info: TableCellInfo! {
         didSet {
-
+            name.text = info.name
+            messageText.text = info.message
+            profilePic.image = UIImage(named: info.imageName ?? "")
         }
     }
     
